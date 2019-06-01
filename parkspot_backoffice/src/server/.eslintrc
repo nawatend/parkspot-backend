@@ -1,0 +1,10 @@
+{
+    "extends": "airbnb",
+    "parser": "babel-eslint",
+    "rules": {
+      "func-names": 0,
+      "indent": [ 2, 4 ],
+      "no-underscore-dangle": [2, { "allow": ["_id"] }],
+      "prefer-default-export": false
+    }
+}

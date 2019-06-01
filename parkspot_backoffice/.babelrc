@@ -1,0 +1,14 @@
+{
+    "presets": [
+        "@babel/preset-env"
+    ],
+    "plugins": [
+        "@babel/plugin-proposal-class-properties",
+        ["@babel/plugin-transform-regenerator", {
+            "asyncGenerators": false,
+            "generators": false,
+            "async": true
+        }],
+        "@babel/plugin-transform-runtime"
+    ]
+}
