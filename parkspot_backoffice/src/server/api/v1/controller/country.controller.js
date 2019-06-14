@@ -140,15 +140,33 @@ class CountryController {
         } = req.params;
 
         try {
-            const country = await Country.findOneAndRemove({
-                _id: id,
-            });
+            let favorite = null;
 
-            if (!country) {
+            let {
+                mode,
+            } = req.query;
+            if (mode) {
+                favorite = await Country.findByIdAndUpdate({
+                    _id: id,
+                }, {
+                    deleted_at: (mode === 'softdelete' ? Date.now() : null),
+                }, {
+                    new: true,
+                });
+            } else {
+                mode = 'delete';
+                favorite = await Country.findOneAndDelete({
+                    _id: id,
+                });
+            }
+
+            if (!favorite) {
                 throw new APIError(404, `Country with id: ${id} not found!`);
             } else {
                 return res.status(200).json({
                     message: `Successful deleted the Country with id: ${id}!`,
+                    favorite,
+                    mode,
                 });
             }
         } catch (err) {

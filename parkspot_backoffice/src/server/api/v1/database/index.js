@@ -5,6 +5,9 @@ import {
     User,
     Country,
     Favorite,
+    Zone,
+    HomeAddress,
+    AvoidZone,
 } from './schemas';
 import Seeder from './seeder';
 
@@ -16,4 +19,7 @@ export {
     User,
     Country,
     Favorite,
+    Zone,
+    HomeAddress,
+    AvoidZone,
 };

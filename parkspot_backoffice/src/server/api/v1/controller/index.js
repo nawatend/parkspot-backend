@@ -5,6 +5,9 @@ import CategoryController from './category.controller';
 import PostController from './post.controller';
 import UserController from './user.controller';
 import CountryController from './country.controller';
+import ZoneController from './zone.controller';
+import FavoriteController from './favorite.controller';
+import HomeAddressController from './homeAddress.controller';
 
 export {
     AuthController,
@@ -13,4 +16,7 @@ export {
     PostController,
     UserController,
     CountryController,
+    ZoneController,
+    FavoriteController,
+    HomeAddressController,
 };

@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import mongoosePaginate from 'mongoose-paginate';
-
+import slug from 'slug';
 
 const {
     Schema,
@@ -8,15 +8,14 @@ const {
 
 const FavoriteSchema = new Schema({
     user_id: {
-        type: String,
+        type: Schema.Types.ObjectId,
+        ref: 'User',
         required: true,
-        max: 128,
     },
     address: {
         type: String,
-        lowercase: true,
-        unique: true,
         required: true,
+        max: 512,
     },
     deleted_at: {
         type: Date,
@@ -36,12 +35,13 @@ const FavoriteSchema = new Schema({
     },
 });
 
-FavoriteSchema.methods.makeShortForm = function () {
-    this.shortForm = this.name.substring(0, 2);
+FavoriteSchema.methods.slugify = function () {
+    this.slug = slug(this.address);
 };
+
 FavoriteSchema.pre('validate', function (next) {
     if (!this.slug) {
-        this.makeShortForm();
+        this.slugify();
     }
     return next();
 });

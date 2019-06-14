@@ -16,6 +16,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import HomeIcon from '@material-ui/icons/Home';
 import PeopleIcon from '@material-ui/icons/People';
 import DnsRoundedIcon from '@material-ui/icons/DnsRounded';
+import StarIcon from '@material-ui/icons/Stars';
 import PermMediaOutlinedIcon from '@material-ui/icons/PhotoSizeSelectActual';
 import PublicIcon from '@material-ui/icons/Public';
 import SettingsEthernetIcon from '@material-ui/icons/SettingsEthernet';
@@ -28,11 +29,15 @@ const categories = [
   {
     id: 'Develop',
     children: [
-      { id: 'Blogs', icon: <PermMediaOutlinedIcon />, link: '/admin/blogs' },
-      { id: 'Categories', icon: <DnsRoundedIcon />, link: '/admin/categories' },
+      // { id: 'Posts', icon: <PeopleIcon />, link: '/admin/posts' },
+      // { id: 'Blogs', icon: <PermMediaOutlinedIcon />, link: '/admin/blogs' },
+      // { id: 'Categories', icon: <DnsRoundedIcon />, link: '/admin/categories' },
+
       { id: 'Countries', icon: <DnsRoundedIcon />, link: '/admin/countries' },
-      { id: 'Posts', icon: <PeopleIcon />, link: '/admin/posts' },
+      { id: 'Zones', icon: <DnsRoundedIcon />, link: '/admin/zones' },
       { id: 'Users', icon: <PeopleIcon />, link: '/admin/users' },
+      { id: 'Favorites', icon: <StarIcon />, link: '/admin/favorites' },
+      { id: 'HomeAddresses', icon: <StarIcon />, link: '/admin/homeAddresses' },
     ],
   },
 ];

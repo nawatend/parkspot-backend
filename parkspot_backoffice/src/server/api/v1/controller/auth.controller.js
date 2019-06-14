@@ -17,7 +17,7 @@ class AuthController {
                 return next(err);
             }
             if (!user) {
-                return next(new Error('Eeeeeekkj'));
+                return next(new Error('Eeeekkj'));
             }
             req.auth = {
                 id: user.id,

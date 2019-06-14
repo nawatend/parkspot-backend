@@ -40,9 +40,8 @@ CountrySchema.methods.makeShortForm = function () {
     this.shortForm = this.name.substring(0, 2);
 };
 CountrySchema.pre('validate', function (next) {
-    if (!this.slug) {
-        this.makeShortForm();
-    }
+    this.makeShortForm();
+
     return next();
 });
 

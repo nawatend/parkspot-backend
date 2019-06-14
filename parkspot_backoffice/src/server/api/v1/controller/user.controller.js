@@ -15,26 +15,16 @@ class UserController {
     // List all the models
     index = async (req, res, next) => {
         try {
-            const { limit, skip } = req.query;
-            let posts = null;
-            if (limit && skip) {
-                const options = {
-                    page: parseInt(skip, 10) || 1,
-                    limit: parseInt(limit, 10) || 10,
-                    populate: 'category',
-                    sort: { created_at: -1 },
-                };
-                posts = await User.paginate({}, options);
-            } else {
-                posts = await User.find().populate('category').sort({ created_at: -1 }).exec();
-            }
+            // const { limit, skip } = req.query;
+            let users = null;
 
-            if (posts === undefined || posts === null) {
-                throw new APIError(404, 'Collection for posts not found!');
+            users = await User.find().sort({ created_at: -1 }).exec();
+            if (users === undefined || users === null) {
+                throw new APIError(404, 'Collection for users not found!');
             }
-            return res.status(200).json(posts);
+            return res.status(200).json(users);
         } catch (err) {
-            return handleAPIError(500, err.message || 'Some error occurred while retrieving posts', next);
+            return handleAPIError(500, err.message || 'Some error occurred while retrieving users', next);
         }
     };
 
@@ -42,20 +32,20 @@ class UserController {
     show = async (req, res, next) => {
         try {
             const { id } = req.params;
-            const item = await User.findById(id).populate('category').exec();
-            if (item === undefined || item === null) {
+            const user = await User.findById(id).exec();
+            if (user === undefined || user === null) {
                 throw new APIError(404, `User with id: ${id} not found!`);
             }
-            return res.status(200).json(item);
+            return res.status(200).json(user);
         } catch (err) {
-            return handleAPIError(err.status || 500, err.message || 'Some error occurred while retrieving posts', next);
+            return handleAPIError(err.status || 500, err.message || 'Some error occurred while retrieving users', next);
         }
     }
 
     // ViewModel for Insert / Create
     create = (req, res) => {
         const vm = {
-            categories: [],
+            userData: [],
         };
         return res.status(200).json(vm);
     }
@@ -63,13 +53,11 @@ class UserController {
     // Store / Create the new model
     store = async (req, res, next) => {
         try {
-            const postCreate = new User({
-                title: req.body.title,
-                synopsis: req.body.synopsis,
-                body: req.body.body,
-                categoryId: req.body.categoryId
+            const userCreate = new User({
+                email: req.body.email,
+                password: req.body.password,
             });
-            const user = await postCreate.save();
+            const user = await userCreate.save();
             return res.status(201).json(user);
         } catch (err) {
             return handleAPIError(err.status || 500, err.message || 'Some error occurred while saving the User!', next);
@@ -88,7 +76,7 @@ class UserController {
             } else {
                 const vm = {
                     user,
-                    categories: [],
+
                 };
                 return res.status(200).json(vm);
             }
@@ -102,8 +90,8 @@ class UserController {
         const { id } = req.params;
 
         try {
-            const postUpdate = req.body;
-            const user = await User.findOneAndUpdate({ _id: id }, postUpdate, { new: true }).exec();
+            const userUpdate = req.body;
+            const user = await User.findOneAndUpdate({ _id: id }, userUpdate, { new: true }).exec();
 
             if (!user) {
                 throw new APIError(404, `User with id: ${id} not found!`);

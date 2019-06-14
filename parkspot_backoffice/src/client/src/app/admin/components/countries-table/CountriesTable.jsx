@@ -159,6 +159,7 @@ class CountriesTable extends Component {
           <Table className={classes.table} aria-labelledby="tableTitle">
             <TableHead>
               <TableRow>
+                <TableCell>ID</TableCell>
                 <TableCell>Name</TableCell>
                 <TableCell>Created</TableCell>
                 <TableCell>Actions</TableCell>
@@ -167,6 +168,7 @@ class CountriesTable extends Component {
             <TableBody>
               {countries && countries.map((country, index) => (
                 <TableRow key={country.id}>
+                  <TableCell>{country.id}</TableCell>
                   <TableCell>{country.name}</TableCell>
                   <TableCell>{country.created_at}</TableCell>
                   <TableCell>

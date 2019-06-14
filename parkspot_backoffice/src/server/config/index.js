@@ -25,6 +25,10 @@ const config = {
             clientID: process.env.AUTH_FACEBOOK_CLIENT_ID,
             clientSecret: process.env.AUTH_FACEBOOK_CLIENT_SECRET,
         },
+        google: {
+            clientID: process.env.AUTH_GOOGLE_CLIENT_ID,
+            clientSecret: process.env.AUTH_GOOGLE_CLIENT_SECRET,
+        },
     },
 };
 
