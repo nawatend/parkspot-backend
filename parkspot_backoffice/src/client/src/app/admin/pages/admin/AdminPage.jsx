@@ -14,6 +14,7 @@ import CountriesOverviewPage from '../countries-overview';
 import ZonesOverviewPage from '../zones-overview';
 import FavoritesOverviewPage from '../favorites-overview';
 import HomeAddressesOverviewPage from '../homeAddresses-overview';
+import AvoidZonesOverviewPage from '../avoidZones-overview';
 import UsersOverviewPage from '../users-overview';
 class AdminPage extends Component {
   render() {
@@ -28,6 +29,7 @@ class AdminPage extends Component {
         <Route path="/admin/users" component={UsersOverviewPage}></Route>
         <Route path="/admin/favorites" component={FavoritesOverviewPage}></Route>
         <Route path="/admin/homeAddresses" component={HomeAddressesOverviewPage}></Route>
+        <Route path="/admin/avoidZones" component={AvoidZonesOverviewPage}></Route>
       </div>
     )
   }

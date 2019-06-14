@@ -28,8 +28,8 @@ import Form from "./Form";
 Validation
 */
 const validationSchema = Yup.object({
-    user_id: Yup.string("Enter a user id").required("User ID is required").min(2).max(128),
-    address: Yup.string("Enter a address").required("Address is required").min(2).max(512),
+
+    name: Yup.string("Enter a Zone name").required("Address is Zone Name").min(2).max(512),
 });
 
 /*
@@ -49,24 +49,24 @@ const styles = theme => ({
     }
 });
 
-class HomeAddressForm extends Component {
+class AvoidZoneForm extends Component {
     static propTypes = {
         classes: PropTypes.object.isRequired,
     }
 
     state = {
 
-        homeAddress: {
-            user_id: "",
-            address: "",
+        avoidZones: {
+
+            name: "",
         },
     };
 
     componentWillMount() {
         // this.loadCategories();
 
-        if (this.props.homeAddressId) {
-            this.loadHomeAddress(this.props.homeAddressId);
+        if (this.props.avoidZonesId) {
+            this.loadAvoidZone(this.props.avoidZonesId);
         }
     }
 
@@ -78,13 +78,13 @@ class HomeAddressForm extends Component {
     //             cache: 'default'
     //         };
 
-    //         const response = await fetch('/api/v1/homeAddresses', options);
+    //         const response = await fetch('/api/v1/avoidZones', options);
     //         console.log(response);
     //         const responseJson = await response.json();
     //         if (responseJson) {
     //             this.setState(prevState => ({
     //                 ...prevState,
-    //                 homeAddresses: responseJson
+    //                 avoidZones: responseJson
     //             }));
     //         }
     //     } catch (error) {
@@ -92,7 +92,7 @@ class HomeAddressForm extends Component {
     //     }
     // }
 
-    loadHomeAddress = async (homeAddressId) => {
+    loadAvoidZone = async (avoidZonesId) => {
         try {
             const options = {
                 method: 'GET',
@@ -100,12 +100,12 @@ class HomeAddressForm extends Component {
                 cache: 'default'
             };
 
-            const response = await fetch(`/api/v1/homeAddresses/${homeAddressId}`, options);
+            const response = await fetch(`/api/v1/avoidZones/${avoidZonesId}`, options);
             const responseJson = await response.json();
             if (responseJson) {
                 this.setState(prevState => ({
                     ...prevState,
-                    homeAddress: responseJson
+                    avoidZones: responseJson
                 }));
             }
         } catch (error) {
@@ -115,19 +115,19 @@ class HomeAddressForm extends Component {
 
     submit = (values, actions) => {
         const {
-            homeAddressId
+            avoidZonesId
         } = this.props;
 
-        if (homeAddressId) {
-            this.updateHomeAddress(homeAddressId, values);
+        if (avoidZonesId) {
+            this.updateAvoidZone(avoidZonesId, values);
         } else {
-            this.saveHomeAddress(values);
-            console.log('save homeAddress')
+            this.saveAvoidZone(values);
+            console.log('save avoidZones')
         }
 
     }
 
-    saveHomeAddress = async (homeAddressData) => {
+    saveAvoidZone = async (avoidZonesData) => {
         try {
             const options = {
                 method: 'POST',
@@ -135,13 +135,13 @@ class HomeAddressForm extends Component {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(homeAddressData),
+                body: JSON.stringify(avoidZonesData),
                 mode: 'cors',
                 cache: 'default'
             };
 
-            const response = await fetch('/api/v1/homeAddresses', options);
-            //console.log(JSON.stringify(homeAddressData));
+            const response = await fetch('/api/v1/avoidZones', options);
+            //console.log(JSON.stringify(avoidZonesData));
             const responseJson = await response.json();
 
             if (responseJson) {
@@ -154,7 +154,7 @@ class HomeAddressForm extends Component {
         }
     }
 
-    updateHomeAddress = async (homeAddressId, homeAddressData) => {
+    updateAvoidZone = async (avoidZonesId, avoidZonesData) => {
         try {
             const options = {
                 method: 'PUT',
@@ -162,12 +162,12 @@ class HomeAddressForm extends Component {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(homeAddressData),
+                body: JSON.stringify(avoidZonesData),
                 mode: 'cors',
                 cache: 'default'
             };
 
-            const response = await fetch(`/api/v1/homeAddresses/${homeAddressId}`, options);
+            const response = await fetch(`/api/v1/avoidZones/${avoidZonesId}`, options);
             const responseJson = await response.json();
             if (responseJson) {
                 console.log(responseJson);
@@ -182,42 +182,43 @@ class HomeAddressForm extends Component {
             classes
         } = this.props;
         const {
-            homeAddress: values
+            avoidZones: values
         } = this.state;
 
         console.log(values);
 
-        return (< React.Fragment >
-            <div className={classes.container} >
-                <
-                    Paper className={
-                        classes.paper
-                    } >
+        return (
+            < React.Fragment >
+                <div className={classes.container} >
                     <
-                        Formik render={
-                            props => < Form {
-                                ...props
-                            }
-                                homeAddresses={
-                                    this.state.homeAddresses
+                        Paper className={
+                            classes.paper
+                        } >
+                        <
+                            Formik render={
+                                props => < Form {
+                                    ...props
                                 }
-                            />}
-                        initialValues={
-                            values
-                        }
-                        validationSchema={
-                            validationSchema
-                        }
-                        onSubmit={
-                            (values, actions) => this.submit(values, actions)
-                        }
-                        enableReinitialize={
-                            true
-                        }
-                    /> </Paper >
-            </div> </React.Fragment >
+                                    avoidZones={
+                                        this.state.avoidZones
+                                    }
+                                />}
+                            initialValues={
+                                values
+                            }
+                            validationSchema={
+                                validationSchema
+                            }
+                            onSubmit={
+                                (values, actions) => this.submit(values, actions)
+                            }
+                            enableReinitialize={
+                                true
+                            }
+                        /> </Paper >
+                </div> </React.Fragment >
         );
     }
 }
 
-export default withStyles(styles)(HomeAddressForm);
+export default withStyles(styles)(AvoidZoneForm);

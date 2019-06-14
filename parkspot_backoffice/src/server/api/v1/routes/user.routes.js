@@ -2,7 +2,9 @@
 Import the internal libraries:
 - UserController
 */
-import { UserController } from '../controller';
+import {
+    UserController,
+} from '../controller';
 
 // Create instance of UserController otherwise you can't use it
 const userController = new UserController();
@@ -35,7 +37,7 @@ const initializeEndpoints = (parentRouter, authService) => {
      *       200:
      *         description: Create user
      */
-    parentRouter.get('/users/create/', userController.create);
+    parentRouter.post('/users/create/', userController.create);
     /**
      * @swagger
      * /api/v1/users/{id}:

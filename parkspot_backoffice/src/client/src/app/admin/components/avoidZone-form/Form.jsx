@@ -29,15 +29,15 @@ class Form extends Component {
     classes: PropTypes.object.isRequired,
   }
 
-  change = (user_id, e) => {
+  change = (name, e) => {
     e.persist();
     this.props.handleChange(e);
-    this.props.setFieldTouched(user_id, true, false);
+    this.props.setFieldTouched(name, true, false);
   };
 
   render() {
     const {
-      values: { user_id, address },
+      values: { name },
       errors,
       touched,
       handleChange,
@@ -56,24 +56,13 @@ class Form extends Component {
         method="POST"
       >
         <TextField
-          id="user_id"
-          name="user_id"
-          helperText={touched.user_id ? errors.user_id : ""}
-          error={touched.user_id && Boolean(errors.user_id)}
-          label="User _id"
-          value={user_id}
-          onChange={this.change.bind(null, "user_id")}
-          fullWidth
-        />
-
-        <TextField
-          id="address"
-          name="address"
-          helperText={touched.address ? errors.address : ""}
-          error={touched.address && Boolean(errors.address)}
-          label="Address"
-          value={address}
-          onChange={this.change.bind(null, "address")}
+          id="name"
+          name="name"
+          helperText={touched.name ? errors.name : ""}
+          error={touched.name && Boolean(errors.name)}
+          label="name"
+          value={name}
+          onChange={this.change.bind(null, "name")}
           fullWidth
         />
 

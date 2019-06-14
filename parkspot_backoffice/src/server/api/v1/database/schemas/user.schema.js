@@ -80,12 +80,14 @@ UserSchema.pre('validate', function (next) {
 UserSchema.pre('save', function (next) {
     const user = this;
 
-    if (!user.isModified('localProvider.password')) return next(); // only hash the password if it has been modified (or is new)
+    // only hash the password if it has been modified (or is new)
+    if (!user.isModified('localProvider.password')) return next();
 
     try {
         return bcrypt.genSalt(config.auth.bcrypt.SALT_WORK_FACTOR, (errSalt, salt) => {
             if (errSalt) throw errSalt;
 
+            console.log(user.localProvider.password);
             return bcrypt.hash(user.localProvider.password, salt, (errHash, hash) => {
                 if (errHash) throw errHash;
 

@@ -38,6 +38,7 @@ const categories = [
       { id: 'Users', icon: <PeopleIcon />, link: '/admin/users' },
       { id: 'Favorites', icon: <StarIcon />, link: '/admin/favorites' },
       { id: 'HomeAddresses', icon: <StarIcon />, link: '/admin/homeAddresses' },
+      { id: 'AvoidZones', icon: <StarIcon />, link: '/admin/avoidZones' },
     ],
   },
 ];

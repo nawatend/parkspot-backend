@@ -55,7 +55,8 @@ class UserController {
         try {
             const userCreate = new User({
                 email: req.body.email,
-                password: req.body.password,
+                localProvider: req.body.localProvider,
+
             });
             const user = await userCreate.save();
             return res.status(201).json(user);

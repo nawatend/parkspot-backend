@@ -41,16 +41,16 @@ const styles = theme => ({
   },
 });
 
-class UsersTable extends Component {
+class AvoidZonesTable extends Component {
 
   static propTypes = {
     classes: PropTypes.object.isRequired,
   };
 
   state = {
-    users: null,
-    userId: null,
-    userAction: null,
+    avoidZones: null,
+    avoidZoneId: null,
+    avoidZoneAction: null,
     dialogOpen: false,
     dialogTitle: '',
     dialogMessage: ''
@@ -58,28 +58,28 @@ class UsersTable extends Component {
 
 
 
-  handleDialogOpen = (userId, userAction) => {
+  handleDialogOpen = (avoidZoneId, avoidZoneAction) => {
     let title = '';
     let message = '';
 
-    switch (userAction) {
+    switch (avoidZoneAction) {
       case POSTACTIONSENUM.DELETE:
         title = 'Delete from the database?';
-        message = `Do you wish permenantly delete the user with id ${userId}?`;
+        message = `Do you wish permenantly delete the avoidZone with id ${avoidZoneId}?`;
         break;
       case POSTACTIONSENUM.SOFTDELETE:
         title = 'Soft-delete from the database?';
-        message = `Do you wish to soft-delete the user with id ${userId}?`;
+        message = `Do you wish to soft-delete the avoidZone with id ${avoidZoneId}?`;
         break;
       case POSTACTIONSENUM.SOFTUNDELETE:
         title = 'Soft-undelete from the database?';
-        message = `Do you wish to soft-undelete the user with id ${userId}?`;
+        message = `Do you wish to soft-undelete the avoidZone with id ${avoidZoneId}?`;
         break;
     }
 
     this.setState({
-      userId: userId,
-      userAction: userAction,
+      avoidZoneId: avoidZoneId,
+      avoidZoneAction: avoidZoneAction,
       dialogOpen: true,
       dialogTitle: title,
       dialogMessage: message
@@ -94,21 +94,21 @@ class UsersTable extends Component {
     let url = '';
     let options = {};
 
-    switch (this.state.userAction) {
+    switch (this.state.avoidZoneAction) {
       case POSTACTIONSENUM.DELETE:
-        url = `/api/v1/users/${this.state.userId}`;
+        url = `/api/v1/avoidZones/${this.state.avoidZoneId}`;
         options = {
           method: 'DELETE'
         }
         break;
       case POSTACTIONSENUM.SOFTDELETE:
-        url = `/api/v1/users/${this.state.userId}?mode=softdelete`;
+        url = `/api/v1/avoidZones/${this.state.avoidZoneId}?mode=softdelete`;
         options = {
           method: 'DELETE'
         }
         break;
       case POSTACTIONSENUM.SOFTUNDELETE:
-        url = `/api/v1/users/${this.state.userId}?mode=softundelete`;
+        url = `/api/v1/avoidZones/${this.state.avoidZoneId}?mode=softundelete`;
         options = {
           method: 'DELETE'
         }
@@ -119,18 +119,18 @@ class UsersTable extends Component {
       .then(res => res.json())
       .then(results => {
         if (results.mode && results.mode === 'delete') {
-          this.loadUsers();
+          this.loadAvoidZones();
         } else {
-          const user = results.user;
-          const i = this.state.users.findIndex((obj, index, array) => {
-            return obj._id === user._id;
+          const avoidZone = results.avoidZone;
+          const i = this.state.avoidZones.findIndex((obj, index, array) => {
+            return obj._id === avoidZone._id;
           });
-          const users = this.state.users;
-          users[i] = user;
+          const avoidZones = this.state.avoidZones;
+          avoidZones[i] = avoidZone;
 
           this.setState(prevState => ({
             ...prevState,
-            users: users
+            avoidZones: avoidZones
           }));
         }
       }
@@ -140,18 +140,18 @@ class UsersTable extends Component {
   }
 
   componentWillMount() {
-    this.loadUsers();
+    this.loadAvoidZones();
   }
 
-  loadUsers = () => {
-    fetch('/api/v1/users')
+  loadAvoidZones = () => {
+    fetch('/api/v1/avoidZones')
       .then(response => response.json())
-      .then(item => this.setState({ users: item }));
+      .then(item => this.setState({ avoidZones: item }));
   }
 
   render() {
     const { classes } = this.props;
-    const { users } = this.state;
+    const { avoidZones } = this.state;
 
     return (
       <Paper className={classes.root}>
@@ -159,31 +159,27 @@ class UsersTable extends Component {
           <Table className={classes.table} aria-labelledby="tableTitle">
             <TableHead>
               <TableRow>
-                <TableCell>User Id</TableCell>
-                <TableCell>E-mail</TableCell>
-                <TableCell>Password</TableCell>
-                <TableCell>Created</TableCell>
+                <TableCell>Zone ID</TableCell>
+                <TableCell>Zone Name</TableCell>
                 <TableCell>Actions</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {users && users.map((user, index) => (
-                <TableRow key={user.id}>
-                  <TableCell>{user.id}</TableCell>
-                  <TableCell>{user.email}</TableCell>
-                  <TableCell>{user.localProvider.password}</TableCell>
-                  <TableCell>{user.created_at}</TableCell>
+              {avoidZones && avoidZones.map((avoidZone, index) => (
+                <TableRow key={avoidZone.id}>
+                  <TableCell>{avoidZone.id}</TableCell>
+                  <TableCell>{avoidZone.name}</TableCell>
                   <TableCell>
                     <IconButton
-                      component={Link} to={`/admin/users/${user.id}/edit`}>
+                      component={Link} to={`/admin/avoidZones/${avoidZone.id}/edit`}>
                       <IconCreate />
                     </IconButton>
                     <IconButton
-                      onClick={() => this.handleDialogOpen(user.id, (user.deleted_at) ? POSTACTIONSENUM.SOFTUNDELETE : POSTACTIONSENUM.SOFTDELETE)} style={{ opacity: ((user.deleted_at) ? 0.3 : 1) }}>
+                      onClick={() => this.handleDialogOpen(avoidZone.id, (avoidZone.deleted_at) ? POSTACTIONSENUM.SOFTUNDELETE : POSTACTIONSENUM.SOFTDELETE)} style={{ opacity: ((avoidZone.deleted_at) ? 0.3 : 1) }}>
                       <IconDelete />
                     </IconButton>
                     <IconButton
-                      onClick={() => this.handleDialogOpen(user.id, POSTACTIONSENUM.DELETE)}>
+                      onClick={() => this.handleDialogOpen(avoidZone.id, POSTACTIONSENUM.DELETE)}>
                       <IconDeleteForever />
                     </IconButton>
                   </TableCell>
@@ -218,4 +214,4 @@ class UsersTable extends Component {
   }
 }
 
-export default withStyles(styles)(UsersTable);
+export default withStyles(styles)(AvoidZonesTable);

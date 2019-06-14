@@ -37,33 +37,67 @@ class AuthService {
     }
 
     initializeLocalStrategy = () => {
-        passport.use(new LocalStrategy({
-            usernameField: 'email',
-            passwordField: 'password',
-        },
-        async (email, password, done) => {
-            try {
-                const user = await User.findOne({
-                    email,
-                });
-
-                if (!user) {
-                    return done(null, false, {
-                        message: 'No user by that email',
+        passport.use(
+            new LocalStrategy({
+                usernameField: 'email',
+                passwordField: 'password',
+            },
+            async (email, password, done) => {
+                try {
+                    const user = await User.findOne({
+                        email,
                     });
-                }
 
-                return user.comparePassword(password, (isMatch) => {
-                    if (!isMatch) {
-                        return done(null, false);
+                    if (!user) {
+                        return done(null, false, {
+                            message: 'No user by that email',
+                        });
                     }
-                    return done(null, user);
-                });
-            } catch (error) {
-                return done(error);
-            }
-        }));
-    }
+
+                    return user.comparePassword(password, (isMatch) => {
+                        if (!isMatch) {
+                            return done(null, false, {
+                                message: 'Please enter a valid password',
+                            });
+                        }
+                        return done(null, user);
+                    });
+                } catch (error) {
+                    return done(error);
+                }
+            }),
+        );
+    };
+
+    // initializeLocalStrategy = () => {
+    //     passport.use(new LocalStrategy({
+    //         usernameField: 'email',
+    //         passwordField: 'password',
+    //     },
+    //     async (email, password, done) => {
+    //         try {
+    //             const user = await User.findOne({
+    //                 email,
+    //             });
+
+
+    //             if (!user) {
+    //                 return done(null, false, {
+    //                     message: 'Nope Email',
+    //                 });
+    //             }
+
+    //             return user.comparePassword(password, (isMatch) => {
+    //                 if (!isMatch) {
+    //                     return done(null, false);
+    //                 }
+    //                 return done(null, user);
+    //             });
+    //         } catch (error) {
+    //             return console.log('e');
+    //         }
+    //     }));
+    // }
 
     initializeJwtStrategy = () => {
         passport.use(new JwtStrategy({

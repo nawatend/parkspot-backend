@@ -63,8 +63,8 @@ class AvoidZoneController {
     store = async (req, res, next) => {
         try {
             const avoidZoneCreate = new AvoidZone({
-                user_id: req.body.user_id,
-                address: req.body.address,
+
+                name: req.body.name,
             });
             const avoidZone = await avoidZoneCreate.save();
 

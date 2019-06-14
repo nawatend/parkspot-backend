@@ -2,7 +2,9 @@
 Import the internal libraries:
 - AuthController
 */
-import { AuthController } from '../controller';
+import {
+    AuthController,
+} from '../controller';
 
 // Create instance of AuthController otherwise you can't use it
 const authController = new AuthController();

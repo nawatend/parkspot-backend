@@ -38,7 +38,7 @@ const AvoidZoneSchema = new Schema({
 });
 
 AvoidZoneSchema.methods.slugify = function () {
-    this.slug = slug(this.address);
+    this.slug = slug(this.name);
 };
 
 AvoidZoneSchema.pre('validate', function (next) {
