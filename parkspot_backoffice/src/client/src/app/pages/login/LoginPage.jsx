@@ -15,6 +15,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
+import axios from 'axios';
 
 /*
 Material UI
@@ -61,9 +62,40 @@ const styles = theme => ({
 });
 
 class LoginPage extends Component {
+
+  constructor() {
+    super();
+
+    this.state = {
+      formFields: { email: '', password: "" }
+    }
+  }
+
+
+  inputChangeHandler(e) {
+    let formFields = { ...this.state.formFields };
+    formFields[e.target.name] = e.target.value;
+    this.setState({
+      formFields
+    });
+  }
+
+  formHandler(formFields) {
+    axios.post('http://127.0.0.1:8080/api/v1/login/local', formFields)
+      .then(function (response) {
+        console.log(response);
+        //Perform action based on response
+      })
+      .catch(function (error) {
+        console.log(error);
+        //Perform action based on error
+      });
+  }
+
+
   render() {
     const { classes } = this.props;
-    
+
     return (
       <React.Fragment>
         <CssBaseline />
@@ -74,14 +106,14 @@ class LoginPage extends Component {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <form className={classes.form}>
+          <form className={classes.form} onSubmit={this.formHandler(this.state.formFields)}>
             <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="email">Email Address</InputLabel>
-              <Input id="email" name="email" autoComplete="email" autoFocus />
+              <Input id="email" name="email" autoComplete="email" autoFocus onChange={(e) => this.inputChangeHandler.call(this, e)} value={this.state.formFields.email} />
             </FormControl>
             <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="password">Password</InputLabel>
-              <Input name="password" type="password" id="password" autoComplete="current-password" />
+              <Input name="password" type="password" id="password" autoComplete="current-password" onChange={(e) => this.inputChangeHandler.call(this, e)} value={this.state.formFields.password} />
             </FormControl>
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
