@@ -107,10 +107,12 @@ UserSchema.pre('save', function (next) {
 
 UserSchema.methods.comparePassword = function (candidatePassword, cb) {
     const user = this;
-    bcrypt.compare(candidatePassword, user.localProvider.password, (err, isMatch) => {
+    bcrypt.compare(candidatePassword, user.localProvider, (err, isMatch) => {
         if (err) {
+            console.log(err);
             return cb(err, null);
         }
+        console.log(isMatch);
         return cb(null, isMatch);
     });
 };
