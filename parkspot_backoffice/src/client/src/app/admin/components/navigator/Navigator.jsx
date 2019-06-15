@@ -18,6 +18,12 @@ import PeopleIcon from '@material-ui/icons/People';
 import DnsRoundedIcon from '@material-ui/icons/DnsRounded';
 import StarIcon from '@material-ui/icons/Stars';
 import SettingIcon from '@material-ui/icons/SettingsApplications';
+import CityIcon from '@material-ui/icons/AccountBalance'
+import LandIcon from '@material-ui/icons/Landscape'
+import AvoidIcon from '@material-ui/icons/ExploreOff'
+import LocationIcon from '@material-ui/icons/MyLocation'
+import PlaceIcon from '@material-ui/icons/Place'
+
 import PermMediaOutlinedIcon from '@material-ui/icons/PhotoSizeSelectActual';
 import PublicIcon from '@material-ui/icons/Public';
 import SettingsEthernetIcon from '@material-ui/icons/SettingsEthernet';
@@ -30,19 +36,19 @@ const categories = [
   {
     id: 'Develop',
     children: [
-      { id: 'Posts', icon: <PeopleIcon />, link: '/admin/posts' },
+      //{ id: 'Posts', icon: <PeopleIcon />, link: '/admin/posts' },
       // { id: 'Blogs', icon: <PermMediaOutlinedIcon />, link: '/admin/blogs' },
       // { id: 'Categories', icon: <DnsRoundedIcon />, link: '/admin/categories' },
 
-      { id: 'Countries', icon: <DnsRoundedIcon />, link: '/admin/countries' },
-      { id: 'Cities', icon: <DnsRoundedIcon />, link: '/admin/cities' },
+      { id: 'Countries', icon: <LandIcon />, link: '/admin/countries' },
+      { id: 'Cities', icon: <CityIcon />, link: '/admin/cities' },
       { id: 'Zones', icon: <DnsRoundedIcon />, link: '/admin/zones' },
       { id: 'Users', icon: <PeopleIcon />, link: '/admin/users' },
       { id: 'Favorites', icon: <StarIcon />, link: '/admin/favorites' },
-      { id: 'HomeAddresses', icon: <StarIcon />, link: '/admin/homeAddresses' },
-      { id: 'AvoidZones', icon: <StarIcon />, link: '/admin/avoidZones' },
+      { id: 'HomeAddresses', icon: <LocationIcon />, link: '/admin/homeAddresses' },
+      { id: 'AvoidZones', icon: <AvoidIcon />, link: '/admin/avoidZones' },
       { id: 'Settings', icon: <SettingIcon />, link: '/admin/settings' },
-      { id: 'CityZones', icon: <SettingIcon />, link: '/admin/cityZones' },
+      { id: 'CityZones', icon: <PlaceIcon />, link: '/admin/cityZones' },
     ],
   },
 ];
