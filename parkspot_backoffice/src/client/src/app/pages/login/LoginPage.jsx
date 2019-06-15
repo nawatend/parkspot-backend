@@ -83,7 +83,6 @@ class LoginPage extends Component {
 
   routeChange() {
     let path = `http://localhost:3000/admin`;
-    this.props.history.push(path);
   }
 
   formHandler = (formFields, e) => {

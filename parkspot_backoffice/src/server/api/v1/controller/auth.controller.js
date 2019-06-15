@@ -16,7 +16,7 @@ class AuthController {
             if (err) {
                 return next(err);
             }
-            
+
             if (!user) {
                 return next(new Error(`No user found ${info.message}`));
             }
@@ -26,6 +26,8 @@ class AuthController {
                 id: user.id,
             };
             const token = createToken(req.auth);
+
+            // return res.setHeader('Location', 'http://localhost:3000/admin');
             return res.status(200).json({
                 email: user.email,
                 token: `${token}`,
