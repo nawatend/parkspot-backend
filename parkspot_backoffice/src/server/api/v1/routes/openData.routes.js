@@ -37,63 +37,63 @@ const initializeEndpoints = (parentRouter, authService) => {
      *       200:
      *         description: Create openData
      */
-    // parentRouter.get('/openDatas/parkandride', openDataController.getParkAndRide);
-    // /**
-    //  * @swagger
-    //  * /api/v1/openDatas/create:
-    //  *   get:
-    //  *     tags:
-    //  *       - OpenData
-    //  *     description: Returns specific viewmodel such as categories
-    //  *     produces:
-    //  *       - application/json
-    //  *     responses:
-    //  *       200:
-    //  *         description: Create openData
-    //  */
-    // parentRouter.get('/openDatas/gentzones', openDataController.getGentZones);
-    // /**
-    //  * @swagger
-    //  * /api/v1/openDatas/create:
-    //  *   get:
-    //  *     tags:
-    //  *       - OpenData
-    //  *     description: Returns specific viewmodel such as categories
-    //  *     produces:
-    //  *       - application/json
-    //  *     responses:
-    //  *       200:
-    //  *         description: Create openData
-    //  */
-    // parentRouter.get('/openDatas/electricpark', openDataController.getElectricPark);
-    // /**
-    //  * @swagger
-    //  * /api/v1/openDatas/create:
-    //  *   get:
-    //  *     tags:
-    //  *       - OpenData
-    //  *     description: Returns specific viewmodel such as categories
-    //  *     produces:
-    //  *       - application/json
-    //  *     responses:
-    //  *       200:
-    //  *         description: Create openData
-    //  */
+    parentRouter.get('/openDatas/parkandride', openDataController.getParkAndRide);
+    /**
+     * @swagger
+     * /api/v1/openDatas/create:
+     *   get:
+     *     tags:
+     *       - OpenData
+     *     description: Returns specific viewmodel such as categories
+     *     produces:
+     *       - application/json
+     *     responses:
+     *       200:
+     *         description: Create openData
+     */
+    parentRouter.get('/openDatas/gentzones', openDataController.getGentZones);
+    /**
+     * @swagger
+     * /api/v1/openDatas/create:
+     *   get:
+     *     tags:
+     *       - OpenData
+     *     description: Returns specific viewmodel such as categories
+     *     produces:
+     *       - application/json
+     *     responses:
+     *       200:
+     *         description: Create openData
+     */
+    parentRouter.get('/openDatas/electricpark', openDataController.getElectricPark);
+    /**
+     * @swagger
+     * /api/v1/openDatas/create:
+     *   get:
+     *     tags:
+     *       - OpenData
+     *     description: Returns specific viewmodel such as categories
+     *     produces:
+     *       - application/json
+     *     responses:
+     *       200:
+     *         description: Create openData
+     */
 
-    // parentRouter.get('/openDatas/handicappark', openDataController.getHandicapPark);
-    // /**
-    //  * @swagger
-    //  * /api/v1/openDatas/create:
-    //  *   get:
-    //  *     tags:
-    //  *       - OpenData
-    //  *     description: Returns specific viewmodel such as categories
-    //  *     produces:
-    //  *       - application/json
-    //  *     responses:
-    //  *       200:
-    //  *         description: Create openData
-    //  */
+    parentRouter.get('/openDatas/handicappark', openDataController.getHandicapPark);
+    /**
+     * @swagger
+     * /api/v1/openDatas/create:
+     *   get:
+     *     tags:
+     *       - OpenData
+     *     description: Returns specific viewmodel such as categories
+     *     produces:
+     *       - application/json
+     *     responses:
+     *       200:
+     *         description: Create openData
+     */
 };
 
 export default initializeEndpoints;
