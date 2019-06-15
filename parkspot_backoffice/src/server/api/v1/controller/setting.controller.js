@@ -122,7 +122,7 @@ class SettingController {
         } = req.params;
 
         try {
-            console.log(req.body);
+            // console.log(req.body);
             const settingUpdate = req.body;
             const setting = await Setting.findOneAndUpdate({
                 _id: id,

@@ -11,6 +11,7 @@ import BlogsOverviewPage from '../blogs-overview';
 import CategoriesOverviewPage from '../categories-overview';
 import PostsOverviewPage from '../posts-overview';
 import CountriesOverviewPage from '../countries-overview';
+import CitiesOverviewPage from '../cities-overview';
 import ZonesOverviewPage from '../zones-overview';
 import FavoritesOverviewPage from '../favorites-overview';
 import HomeAddressesOverviewPage from '../homeAddresses-overview';
@@ -26,6 +27,7 @@ class AdminPage extends Component {
         <Route path="/admin/posts" component={PostsOverviewPage}></Route> */}
 
         <Route path="/admin/countries" component={CountriesOverviewPage}></Route>
+        <Route path="/admin/cities" component={CitiesOverviewPage}></Route>
         <Route path="/admin/Zones" component={ZonesOverviewPage}></Route>
         <Route path="/admin/users" component={UsersOverviewPage}></Route>
         <Route path="/admin/favorites" component={FavoritesOverviewPage}></Route>

@@ -5,11 +5,13 @@ import CategoryController from './category.controller';
 import PostController from './post.controller';
 import UserController from './user.controller';
 import CountryController from './country.controller';
+import CityController from './city.controller';
 import ZoneController from './zone.controller';
 import FavoriteController from './favorite.controller';
 import HomeAddressController from './homeAddress.controller';
 import AvoidZoneController from './avoidZone.controller';
 import SettingController from './setting.controller';
+import OpenDataController from './openData.controller';
 
 export {
     AuthController,
@@ -23,4 +25,6 @@ export {
     HomeAddressController,
     AvoidZoneController,
     SettingController,
+    CityController,
+    OpenDataController,
 };

@@ -26,9 +26,9 @@ let theme = createMuiTheme({
   },
   palette: {
     primary: {
-      light: '#63ccff',
-      main: '#009be5',
-      dark: '#006db3',
+      light: '#58b368',
+      main: '#009975',
+      dark: '#00AFA1',
     },
   },
   shape: {
@@ -41,7 +41,7 @@ theme = {
   overrides: {
     MuiDrawer: {
       paper: {
-        backgroundColor: '#18202c',
+        backgroundColor: '#009980',
       },
     },
     MuiButton: {
@@ -94,7 +94,7 @@ theme = {
     },
     MuiDivider: {
       root: {
-        backgroundColor: '#404854',
+        backgroundColor: '#009975',
       },
     },
     MuiListItemText: {
@@ -158,7 +158,7 @@ const styles = {
 
 class AdminLayout extends React.Component {
   static propTypes = {
-      classes: PropTypes.object.isRequired,
+    classes: PropTypes.object.isRequired,
   };
 
   state = {
@@ -178,12 +178,12 @@ class AdminLayout extends React.Component {
           <CssBaseline />
           <nav className={classes.drawer}>
             <Hidden smUp implementation="js">
-                <Navigator
-                  PaperProps={{ style: { width: drawerWidth } }}
-                  variant="temporary"
-                  open={this.state.mobileOpen}
-                  onClose={this.handleDrawerToggle}
-                />
+              <Navigator
+                PaperProps={{ style: { width: drawerWidth } }}
+                variant="temporary"
+                open={this.state.mobileOpen}
+                onClose={this.handleDrawerToggle}
+              />
             </Hidden>
             <Hidden xsDown implementation="css">
               <Navigator PaperProps={{ style: { width: drawerWidth } }} />
@@ -192,7 +192,7 @@ class AdminLayout extends React.Component {
           <div className={classes.appContent}>
             <Header onDrawerToggle={this.handleDrawerToggle} />
             <main className={classes.mainContent}>
-              { children }
+              {children}
             </main>
           </div>
         </div>

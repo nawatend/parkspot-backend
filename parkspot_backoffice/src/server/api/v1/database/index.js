@@ -4,6 +4,7 @@ import {
     Post,
     User,
     Country,
+    City,
     Favorite,
     Zone,
     HomeAddress,
@@ -24,4 +25,5 @@ export {
     HomeAddress,
     AvoidZone,
     Setting,
+    City,
 };

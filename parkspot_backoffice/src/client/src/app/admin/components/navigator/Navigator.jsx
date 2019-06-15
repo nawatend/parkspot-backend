@@ -35,6 +35,7 @@ const categories = [
       // { id: 'Categories', icon: <DnsRoundedIcon />, link: '/admin/categories' },
 
       { id: 'Countries', icon: <DnsRoundedIcon />, link: '/admin/countries' },
+      { id: 'Cities', icon: <DnsRoundedIcon />, link: '/admin/cities' },
       { id: 'Zones', icon: <DnsRoundedIcon />, link: '/admin/zones' },
       { id: 'Users', icon: <PeopleIcon />, link: '/admin/users' },
       { id: 'Favorites', icon: <StarIcon />, link: '/admin/favorites' },
@@ -56,11 +57,11 @@ const styles = theme => ({
   item: {
     paddingTop: 4,
     paddingBottom: 4,
-    color: 'rgba(255, 255, 255, 0.7)',
+    color: 'rgba(255, 255, 255, 1.7)',
   },
   itemCategory: {
-    backgroundColor: '#232f3e',
-    boxShadow: '0 -1px 0 #404854 inset',
+    backgroundColor: '#009980',
+    boxShadow: '0 -1px 0 #58b368 inset',
     paddingTop: 16,
     paddingBottom: 16,
   },
@@ -71,11 +72,11 @@ const styles = theme => ({
   },
   itemActionable: {
     '&:hover': {
-      backgroundColor: 'rgba(255, 255, 255, 0.08)',
+      backgroundColor: 'rgba(255, 255, 255, .08)',
     },
   },
   itemActiveItem: {
-    color: '#4fc3f7',
+    color: '#d9d872',
   },
   itemPrimary: {
     color: 'inherit',
