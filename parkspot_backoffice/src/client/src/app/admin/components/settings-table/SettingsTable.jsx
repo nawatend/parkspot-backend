@@ -176,9 +176,9 @@ class SettingsTable extends Component {
                   <TableCell>{setting.zoneId}</TableCell>
                   <TableCell>{setting.price_per_hour}</TableCell>
                   <TableCell>{setting.distance_from_destination}</TableCell>
-                  <TableCell>{setting.backcontact}</TableCell>
-                  <TableCell>{setting.low_emission_zone}</TableCell>
-                  <TableCell>{setting.underground}</TableCell>
+                  <TableCell>{(setting.bankcontact) ? "True" : "False"}</TableCell>
+                  <TableCell>{(setting.low_emission_zone) ? "True" : "False"}</TableCell>
+                  <TableCell>{(setting.underground) ? "True" : "False"}</TableCell>
 
                   <TableCell>
                     <IconButton

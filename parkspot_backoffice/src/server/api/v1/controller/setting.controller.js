@@ -8,9 +8,7 @@ Import the internal libraries:
 - * from database
 - errorHandler
 */
-import {
-    Setting,
-} from '../database';
+import { Setting } from '../database';
 import {
     APIError,
     handleAPIError,
@@ -87,6 +85,7 @@ class SettingController {
                 underground: req.body.underground,
             });
             const setting = await settingCreate.save();
+            console.log('Settings stored');
             return res.status(201).json(setting);
         } catch (err) {
             return handleAPIError(err.status || 500, err.message || 'Some error occurred while saving the Setting!', next);
@@ -123,12 +122,14 @@ class SettingController {
         } = req.params;
 
         try {
+            console.log(req.body);
             const settingUpdate = req.body;
             const setting = await Setting.findOneAndUpdate({
                 _id: id,
             }, settingUpdate, {
                 new: true,
             }).exec();
+
 
             if (!setting) {
                 throw new APIError(404, `Setting with id: ${id} not found!`);

@@ -21,6 +21,7 @@ import zoneRouter from './zone.routes';
 import favoriteRouter from './favorite.routes';
 import homeAddressRouter from './homeAddress.routes';
 import avoidZoneRouter from './avoidZones.routes';
+import settingRouter from './setting.routes';
 // Initialize the AuthService
 const authService = new AuthService();
 
@@ -36,4 +37,5 @@ zoneRouter(apiV1Router, authService);
 favoriteRouter(apiV1Router, authService);
 homeAddressRouter(apiV1Router, authService);
 avoidZoneRouter(apiV1Router, authService);
+settingRouter(apiV1Router, authService);
 export default apiV1Router;

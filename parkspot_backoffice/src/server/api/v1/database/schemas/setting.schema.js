@@ -1,23 +1,23 @@
 import mongoose from 'mongoose';
 import mongoosePaginate from 'mongoose-paginate';
-import slug from 'slug';
+
 
 const { Schema } = mongoose;
+mongoose.set('useFindAndModify', false);
 
-const ZoneSchema = new Schema(
+const SettingSchema = new Schema(
     {
         user_id: { type: Schema.Types.ObjectId, ref: 'User', required: true },
 
         zoneId: {
             type: Schema.Types.ObjectId,
-            default: '1',
             ref: 'Zone',
-            required: true,
+            required: false,
         },
         price_per_hour: { type: Number, min: 0, max: 10 },
         distance_from_destination: { type: Number, min: 0, max: 1000 },
-        bankContact: { type: Boolean, default: false },
-        low_emission_zonen: { type: Boolean, default: false },
+        bankcontact: { type: Boolean, default: false },
+        low_emission_zone: { type: Boolean, default: false },
         underground: { type: Boolean, default: false },
 
         published_at: { type: Date, required: false },
@@ -33,15 +33,15 @@ const ZoneSchema = new Schema(
 );
 
 
-ZoneSchema.pre('validate', next => next());
+SettingSchema.pre('validate', next => next());
 
-ZoneSchema.virtual('id').get(function () { return this._id; });
-ZoneSchema.virtual('zone', {
+SettingSchema.virtual('id').get(function () { return this._id; });
+SettingSchema.virtual('zone', {
     ref: 'Zone',
     localField: 'zoneId',
     foreignField: '_id',
     justOne: true,
 });
 
-ZoneSchema.plugin(mongoosePaginate);
-export default mongoose.model('Zone', ZoneSchema);
+SettingSchema.plugin(mongoosePaginate);
+export default mongoose.model('Setting', SettingSchema);
