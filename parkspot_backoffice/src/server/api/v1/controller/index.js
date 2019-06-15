@@ -9,6 +9,7 @@ import ZoneController from './zone.controller';
 import FavoriteController from './favorite.controller';
 import HomeAddressController from './homeAddress.controller';
 import AvoidZoneController from './avoidZone.controller';
+import SettingController from './setting.controller';
 
 export {
     AuthController,
@@ -21,4 +22,5 @@ export {
     FavoriteController,
     HomeAddressController,
     AvoidZoneController,
+    SettingController,
 };

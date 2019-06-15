@@ -31,9 +31,14 @@ const UserSchema = new Schema({
     localProvider: {
         password: {
             type: String,
-            required: false,
+            required: true,
         },
     },
+    role: {
+        type: String,
+        default: 'user',
+    },
+
     facebookProvider: {
         id: {
             type: String,

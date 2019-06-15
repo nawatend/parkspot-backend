@@ -16,7 +16,7 @@ class AuthController {
             if (err) {
                 return next(err);
             }
-            console.log(user);
+            
             if (!user) {
                 return next(new Error(`No user found ${info.message}`));
             }

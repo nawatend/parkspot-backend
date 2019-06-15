@@ -41,16 +41,16 @@ const styles = theme => ({
   },
 });
 
-class ZonesTable extends Component {
+class SettingsTable extends Component {
 
   static propTypes = {
     classes: PropTypes.object.isRequired,
   };
 
   state = {
-    zones: null,
-    zoneId: null,
-    zoneAction: null,
+    settings: null,
+    settingId: null,
+    settingAction: null,
     dialogOpen: false,
     dialogTitle: '',
     dialogMessage: ''
@@ -58,28 +58,28 @@ class ZonesTable extends Component {
 
 
 
-  handleDialogOpen = (zoneId, zoneAction) => {
+  handleDialogOpen = (settingId, settingAction) => {
     let title = '';
     let message = '';
 
-    switch (zoneAction) {
+    switch (settingAction) {
       case POSTACTIONSENUM.DELETE:
         title = 'Delete from the database?';
-        message = `Do you wish permenantly delete the zone with id ${zoneId}?`;
+        message = `Do you wish permenantly delete the setting with id ${settingId}?`;
         break;
       case POSTACTIONSENUM.SOFTDELETE:
         title = 'Soft-delete from the database?';
-        message = `Do you wish to soft-delete the zone with id ${zoneId}?`;
+        message = `Do you wish to soft-delete the setting with id ${settingId}?`;
         break;
       case POSTACTIONSENUM.SOFTUNDELETE:
         title = 'Soft-undelete from the database?';
-        message = `Do you wish to soft-undelete the zone with id ${zoneId}?`;
+        message = `Do you wish to soft-undelete the setting with id ${settingId}?`;
         break;
     }
 
     this.setState({
-      zoneId: zoneId,
-      zoneAction: zoneAction,
+      settingId: settingId,
+      settingAction: settingAction,
       dialogOpen: true,
       dialogTitle: title,
       dialogMessage: message
@@ -94,21 +94,21 @@ class ZonesTable extends Component {
     let url = '';
     let options = {};
 
-    switch (this.state.zoneAction) {
+    switch (this.state.settingAction) {
       case POSTACTIONSENUM.DELETE:
-        url = `/api/v1/zones/${this.state.zoneId}`;
+        url = `/api/v1/settings/${this.state.settingId}`;
         options = {
           method: 'DELETE'
         }
         break;
       case POSTACTIONSENUM.SOFTDELETE:
-        url = `/api/v1/zones/${this.state.zoneId}?mode=softdelete`;
+        url = `/api/v1/settings/${this.state.settingId}?mode=softdelete`;
         options = {
           method: 'DELETE'
         }
         break;
       case POSTACTIONSENUM.SOFTUNDELETE:
-        url = `/api/v1/zones/${this.state.zoneId}?mode=softundelete`;
+        url = `/api/v1/settings/${this.state.settingId}?mode=softundelete`;
         options = {
           method: 'DELETE'
         }
@@ -119,18 +119,18 @@ class ZonesTable extends Component {
       .then(res => res.json())
       .then(results => {
         if (results.mode && results.mode === 'delete') {
-          this.loadZones();
+          this.loadSettings();
         } else {
-          const zone = results.zone;
-          const i = this.state.zones.findIndex((obj, index, array) => {
-            return obj._id === zone._id;
+          const setting = results.setting;
+          const i = this.state.settings.findIndex((obj, index, array) => {
+            return obj._id === setting._id;
           });
-          const zones = this.state.zones;
-          zones[i] = zone;
+          const settings = this.state.settings;
+          settings[i] = setting;
 
           this.setState(prevState => ({
             ...prevState,
-            zones: zones
+            settings: settings
           }));
         }
       }
@@ -140,18 +140,18 @@ class ZonesTable extends Component {
   }
 
   componentWillMount() {
-    this.loadZones();
+    this.loadSettings();
   }
 
-  loadZones = () => {
-    fetch('/api/v1/zones')
+  loadSettings = () => {
+    fetch('/api/v1/settings')
       .then(response => response.json())
-      .then(item => this.setState({ zones: item }));
+      .then(item => this.setState({ settings: item }));
   }
 
   render() {
     const { classes } = this.props;
-    const { zones } = this.state;
+    const { settings } = this.state;
 
     return (
       <Paper className={classes.root}>
@@ -160,30 +160,37 @@ class ZonesTable extends Component {
             <TableHead>
               <TableRow>
                 <TableCell>User ID</TableCell>
-                <TableCell>Zone</TableCell>
+                <TableCell>Zone ID</TableCell>
                 <TableCell>Max Price Per Hour</TableCell>
                 <TableCell>Max Distance from Destination</TableCell>
+                <TableCell>Bankcontact</TableCell>
+                <TableCell>Low Emission Zone</TableCell>
+                <TableCell>Underground</TableCell>
                 <TableCell>Actions</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {zones && zones.map((zone, index) => (
-                <TableRow key={zone.id}>
-                  <TableCell>{zone.title}</TableCell>
-                  <TableCell>{zone.synopsis}</TableCell>
-                  <TableCell>{zone.category && zone.category.name}</TableCell>
-                  <TableCell>{zone.created_at}</TableCell>
+              {settings && settings.map((setting, index) => (
+                <TableRow key={setting.id}>
+                  <TableCell>{setting.user_id}</TableCell>
+                  <TableCell>{setting.zoneId}</TableCell>
+                  <TableCell>{setting.price_per_hour}</TableCell>
+                  <TableCell>{setting.distance_from_destination}</TableCell>
+                  <TableCell>{setting.backcontact}</TableCell>
+                  <TableCell>{setting.low_emission_zone}</TableCell>
+                  <TableCell>{setting.underground}</TableCell>
+
                   <TableCell>
                     <IconButton
-                      component={Link} to={`/admin/zones/${zone.id}/edit`}>
+                      component={Link} to={`/admin/settings/${setting.id}/edit`}>
                       <IconCreate />
                     </IconButton>
                     <IconButton
-                      onClick={() => this.handleDialogOpen(zone.id, (zone.deleted_at) ? POSTACTIONSENUM.SOFTUNDELETE : POSTACTIONSENUM.SOFTDELETE)} style={{ opacity: ((zone.deleted_at) ? 0.3 : 1) }}>
+                      onClick={() => this.handleDialogOpen(setting.id, (setting.deleted_at) ? POSTACTIONSENUM.SOFTUNDELETE : POSTACTIONSENUM.SOFTDELETE)} style={{ opacity: ((setting.deleted_at) ? 0.3 : 1) }}>
                       <IconDelete />
                     </IconButton>
                     <IconButton
-                      onClick={() => this.handleDialogOpen(zone.id, POSTACTIONSENUM.DELETE)}>
+                      onClick={() => this.handleDialogOpen(setting.id, POSTACTIONSENUM.DELETE)}>
                       <IconDeleteForever />
                     </IconButton>
                   </TableCell>
@@ -218,4 +225,4 @@ class ZonesTable extends Component {
   }
 }
 
-export default withStyles(styles)(ZonesTable);
+export default withStyles(styles)(SettingsTable);

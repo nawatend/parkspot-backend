@@ -1,2 +1,2 @@
-import ZonesTable from './ZonesTable';
-export default ZonesTable;
+import SettingsTable from './SettingsTable';
+export default SettingsTable;

@@ -8,6 +8,7 @@ import {
     Zone,
     HomeAddress,
     AvoidZone,
+    Setting,
 } from './schemas';
 import Seeder from './seeder';
 
@@ -22,4 +23,5 @@ export {
     Zone,
     HomeAddress,
     AvoidZone,
+    Setting,
 };

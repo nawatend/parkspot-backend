@@ -38,9 +38,6 @@ class Main extends Component {
           {/* direct to login, because only admin needed */}
           <RouteWithLayout exact path='/' layout={LoginLayout} component={LoginPage} />
           <Redirect from="/home" to="/" />
-          <RouteWithLayout exact path='/news' layout={PageLayout} component={NewsPage} />
-          <RouteWithLayout exact path='/countries' layout={PageLayout} component={CountriesPage} />
-          <RouteWithLayout exact path='/news/:id' layout={PageLayout} component={PostDetailPage} />
           <RouteWithLayout path="/login" layout={LoginLayout} component={LoginPage}></RouteWithLayout>
           <RouteWithLayout path="/admin" layout={AdminLayout} component={AdminPage}></RouteWithLayout>
         </Switch>

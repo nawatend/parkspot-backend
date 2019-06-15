@@ -65,11 +65,12 @@ class LoginPage extends Component {
 
   constructor() {
     super();
-
+    this.routeChange = this.routeChange.bind(this);
     this.state = {
       formFields: { email: '', password: "" }
     }
   }
+
 
 
   inputChangeHandler(e) {
@@ -80,11 +81,22 @@ class LoginPage extends Component {
     });
   }
 
-  formHandler(formFields) {
+  routeChange() {
+    let path = `http://localhost:3000/admin`;
+    this.props.history.push(path);
+  }
+
+  formHandler = (formFields, e) => {
+
+    e.preventDefault()
+
     axios.post('http://127.0.0.1:8080/api/v1/login/local', formFields)
       .then(function (response) {
         console.log(response);
         //Perform action based on response
+        if (response.token) {
+          this.routeChange();
+        }
       })
       .catch(function (error) {
         console.log(error);
@@ -93,8 +105,12 @@ class LoginPage extends Component {
   }
 
 
+
+
   render() {
     const { classes } = this.props;
+
+
 
     return (
       <React.Fragment>
@@ -106,7 +122,7 @@ class LoginPage extends Component {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <form className={classes.form} onSubmit={this.formHandler(this.state.formFields)}>
+          <form action="/api/v1/login/local" method="post" className={classes.form}>
             <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="email">Email Address</InputLabel>
               <Input id="email" name="email" autoComplete="email" autoFocus onChange={(e) => this.inputChangeHandler.call(this, e)} value={this.state.formFields.email} />
@@ -125,6 +141,7 @@ class LoginPage extends Component {
               variant="contained"
               color="primary"
               className={classes.submit}
+            // onClick={(e) => this.formHandler(this.state.formFields)}
             >
               Sign in
             </Button>
@@ -133,6 +150,8 @@ class LoginPage extends Component {
       </React.Fragment>
     )
   }
+
+
 }
 
 export default withStyles(styles)(LoginPage);

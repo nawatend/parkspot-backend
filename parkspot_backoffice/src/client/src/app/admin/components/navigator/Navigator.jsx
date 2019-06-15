@@ -17,6 +17,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import PeopleIcon from '@material-ui/icons/People';
 import DnsRoundedIcon from '@material-ui/icons/DnsRounded';
 import StarIcon from '@material-ui/icons/Stars';
+import SettingIcon from '@material-ui/icons/SettingsApplications';
 import PermMediaOutlinedIcon from '@material-ui/icons/PhotoSizeSelectActual';
 import PublicIcon from '@material-ui/icons/Public';
 import SettingsEthernetIcon from '@material-ui/icons/SettingsEthernet';
@@ -39,6 +40,7 @@ const categories = [
       { id: 'Favorites', icon: <StarIcon />, link: '/admin/favorites' },
       { id: 'HomeAddresses', icon: <StarIcon />, link: '/admin/homeAddresses' },
       { id: 'AvoidZones', icon: <StarIcon />, link: '/admin/avoidZones' },
+      { id: 'Settings', icon: <SettingIcon />, link: '/admin/settings' },
     ],
   },
 ];

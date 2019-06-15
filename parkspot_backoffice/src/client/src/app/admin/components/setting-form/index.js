@@ -23,11 +23,13 @@ Validation
 */
 const validationSchema = Yup.object(
     {
-        
-        
-        pricePerHourId: Yup.string("Select a Price per hour zone").required(true),
-        avoidZoneId: Yup.string("Select a Avoid zone").required(false),
-        zoneId: Yup.string("Select a zone").required(true),
+        user_id: Yup.string("Enter a user id").required("User ID is required").min(2).max(128),
+        zoneId: Yup.string("Enter a zone id").required("Zone ID is required").min(2).max(128),
+        price_per_hour: Yup.number("Enter a pricePerHourId between 0 to 10").required("price_per_hour is required").min(0).max(10),
+        distance_from_destination: Yup.number("Enter a distance_from_destination between 0 to 1000 m").required("distance_from_destination is required").min(0).max(1000),
+        bankcontact: Yup.boolean("True or False bankcontact").required("bankcontact is required"),
+        low_emission_zone: Yup.boolean("True or False low_emission_zone").required("low_emission_zone is required"),
+        underground: Yup.boolean("True or False underground").required("underground is required"),
     });
 
 /*
@@ -54,12 +56,14 @@ class SettingForm extends Component {
 
     state = {
         zones: [],
-        price_per_hour: [],
-        distance_from_destination: [],
-        avoidZones: [],
         setting: {
-            zone: "", price_per_hour: "", distance_from_destination: "",
-            avoidZones: {},
+            user_id: "",
+            zoneId: "", 
+            price_per_hour: "", 
+            distance_from_destination: "",
+            backcontact: "", 
+            low_emission_zone: "", 
+            underground: "",
         },
     }
 

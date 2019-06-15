@@ -6,12 +6,19 @@ const { Schema } = mongoose;
 
 const ZoneSchema = new Schema(
     {
+        user_id: { type: Schema.Types.ObjectId, ref: 'User', required: true },
 
-        zoneId: { type: Schema.Types.ObjectId, ref: 'Zone', required: false },
-        avoidZoneId: { type: Schema.Types.ObjectId, ref: 'AvoidZone', required: false },
-        pricePerHour: { type: Number, min: 0, max: 10 },
-        distanceFromDestination: { type: Number, min: 0, max: 1000 },
+        zoneId: {
+            type: Schema.Types.ObjectId,
+            default: '1',
+            ref: 'Zone',
+            required: true,
+        },
+        price_per_hour: { type: Number, min: 0, max: 10 },
+        distance_from_destination: { type: Number, min: 0, max: 1000 },
         bankContact: { type: Boolean, default: false },
+        low_emission_zonen: { type: Boolean, default: false },
+        underground: { type: Boolean, default: false },
 
         published_at: { type: Date, required: false },
         deleted_at: { type: Date, required: false },
@@ -25,16 +32,8 @@ const ZoneSchema = new Schema(
     },
 );
 
-ZoneSchema.methods.slugify = function () {
-    this.slug = slug(this.title);
-};
 
-ZoneSchema.pre('validate', function (next) {
-    if (!this.slug) {
-        this.slugify();
-    }
-    return next();
-});
+ZoneSchema.pre('validate', next => next());
 
 ZoneSchema.virtual('id').get(function () { return this._id; });
 ZoneSchema.virtual('zone', {

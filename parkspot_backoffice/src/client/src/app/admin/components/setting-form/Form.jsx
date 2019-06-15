@@ -27,20 +27,6 @@ const styles = {
 class Form extends Component {
 
 
-  constructor(props) {
-    super(props);
-    this.state =
-      {
-        user_id: '',
-        zone: 'city',
-        price_per_hour: 0,
-        distance_from_destination: 0,
-        bankcontact: false,
-      };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
   static propTypes = {
     classes: PropTypes.object.isRequired,
   }
@@ -62,7 +48,7 @@ class Form extends Component {
 
   render() {
     const {
-      values: { user_id, zone, zoneId, price_per_hour, distance_from_destination, bankcontact },
+      values: { user_id, zoneId, price_per_hour, distance_from_destination, bankcontact, low_emission_zone, underground },
       errors,
       touched,
       handleChange,
@@ -92,8 +78,6 @@ class Form extends Component {
 
         />
 
-
-
         <FormControl>
           <InputLabel htmlFor="zoneId">Zone</InputLabel>
           <Select
@@ -113,6 +97,65 @@ class Form extends Component {
             ))}
           </Select>
         </FormControl>
+
+
+        <TextField
+          id="price_per_hour"
+          name="price_per_hour"
+          helperText={touched.price_per_hour ? errors.price_per_hour : ""}
+          error={touched.price_per_hour && Boolean(errors.price_per_hour)}
+          label="price_per_hour"
+          value={price_per_hour}
+          onChange={this.change.bind(null, "price_per_hour")}
+          fullWidth
+        />
+        <TextField
+          id="distance_from_destination"
+          name="distance_from_destination"
+          helperText={touched.distance_from_destination ? errors.distance_from_destination : ""}
+          error={touched.distance_from_destination && Boolean(errors.distance_from_destination)}
+          label="distance_from_destination"
+          value={distance_from_destination}
+          onChange={this.change.bind(null, "distance_from_destination")}
+          fullWidth
+        />
+
+
+        <TextField
+          id="bankcontact"
+          name="bankcontact"
+          helperText={touched.bankcontact ? errors.bankcontact : ""}
+          error={touched.bankcontact && Boolean(errors.bankcontact)}
+          label="bankcontact"
+          value={bankcontact}
+          onChange={this.change.bind(null, "bankcontact")}
+          fullWidth
+        />
+
+
+        <TextField
+          id="low_emission_zone"
+          name="low_emission_zone"
+          helperText={touched.low_emission_zone ? errors.low_emission_zone : ""}
+          error={touched.low_emission_zone && Boolean(errors.low_emission_zone)}
+          label="low_emission_zone"
+          value={low_emission_zone}
+          onChange={this.change.bind(null, "low_emission_zone")}
+          fullWidth
+        />
+
+
+
+        <TextField
+          id="underground"
+          name="underground"
+          helperText={touched.underground ? errors.underground : ""}
+          error={touched.underground && Boolean(errors.underground)}
+          label="underground"
+          value={underground}
+          onChange={this.change.bind(null, "underground")}
+          fullWidth
+        />
 
         <Button
           type="submit"

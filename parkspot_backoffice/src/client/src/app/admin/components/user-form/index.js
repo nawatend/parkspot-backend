@@ -56,7 +56,6 @@ class UserForm extends Component {
     }
 
     state = {
-
         user: {
             email: "",
             password: "",
@@ -65,7 +64,6 @@ class UserForm extends Component {
 
     componentWillMount() {
         // this.loadCategories();
-
         if (this.props.userId) {
             this.loadUser(this.props.userId);
         }

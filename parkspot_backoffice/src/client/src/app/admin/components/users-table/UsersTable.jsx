@@ -161,6 +161,7 @@ class UsersTable extends Component {
               <TableRow>
                 <TableCell>User Id</TableCell>
                 <TableCell>E-mail</TableCell>
+                <TableCell>Role</TableCell>
                 <TableCell>Created</TableCell>
                 <TableCell>Actions</TableCell>
               </TableRow>
@@ -170,7 +171,7 @@ class UsersTable extends Component {
                 <TableRow key={user.id}>
                   <TableCell>{user.id}</TableCell>
                   <TableCell>{user.email}</TableCell>
-
+                  <TableCell>{user.role}</TableCell>
                   <TableCell>{user.created_at}</TableCell>
                   <TableCell>
                     <IconButton
