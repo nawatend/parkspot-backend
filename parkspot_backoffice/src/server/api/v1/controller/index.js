@@ -12,6 +12,7 @@ import HomeAddressController from './homeAddress.controller';
 import AvoidZoneController from './avoidZone.controller';
 import SettingController from './setting.controller';
 import OpenDataController from './openData.controller';
+import CityZoneController from './cityZone.controller';
 
 export {
     AuthController,
@@ -27,4 +28,5 @@ export {
     SettingController,
     CityController,
     OpenDataController,
+    CityZoneController,
 };

@@ -92,8 +92,8 @@ class Form extends Component {
             <MenuItem value="">
               <em>None</em>
             </MenuItem>
-            {zones && zones.map((category, index) => (
-              <MenuItem key={category.id} value={category.id}>{category.name}</MenuItem>
+            {zones && zones.map((zone, index) => (
+              <MenuItem key={zone.id} value={zone.id}>{zone.name}</MenuItem>
             ))}
           </Select>
         </FormControl>

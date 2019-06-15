@@ -10,6 +10,7 @@ import {
     HomeAddress,
     AvoidZone,
     Setting,
+    CityZone,
 } from './schemas';
 import Seeder from './seeder';
 
@@ -26,4 +27,5 @@ export {
     AvoidZone,
     Setting,
     City,
+    CityZone,
 };

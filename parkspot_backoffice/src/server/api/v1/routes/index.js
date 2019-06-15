@@ -24,6 +24,7 @@ import homeAddressRouter from './homeAddress.routes';
 import avoidZoneRouter from './avoidZones.routes';
 import settingRouter from './setting.routes';
 import openDataRouter from './openData.routes';
+import cityZoneRouter from './cityZone.routes';
 // Initialize the AuthService
 const authService = new AuthService();
 
@@ -43,4 +44,5 @@ avoidZoneRouter(apiV1Router, authService);
 settingRouter(apiV1Router, authService);
 
 openDataRouter(apiV1Router, authService);
+cityZoneRouter(apiV1Router, authService);
 export default apiV1Router;

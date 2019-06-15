@@ -92,7 +92,7 @@ UserSchema.pre('save', function (next) {
         return bcrypt.genSalt(config.auth.bcrypt.SALT_WORK_FACTOR, (errSalt, salt) => {
             if (errSalt) throw errSalt;
 
-            console.log(user.localProvider.password);
+            // console.log(user.localProvider.password);
             return bcrypt.hash(user.localProvider.password, salt, (errHash, hash) => {
                 if (errHash) throw errHash;
 

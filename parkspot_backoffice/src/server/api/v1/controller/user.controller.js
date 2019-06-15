@@ -52,10 +52,11 @@ class UserController {
 
     // Store / Create the new model
     store = async (req, res, next) => {
+        console.log(req.body);
         try {
             const userCreate = new User({
                 email: req.body.email,
-                localProvider: req.body.localProvider,
+                localProvider: { password: req.body.password },
 
             });
             const user = await userCreate.save();

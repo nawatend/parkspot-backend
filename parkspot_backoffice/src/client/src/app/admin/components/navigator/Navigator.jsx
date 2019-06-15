@@ -30,7 +30,7 @@ const categories = [
   {
     id: 'Develop',
     children: [
-      // { id: 'Posts', icon: <PeopleIcon />, link: '/admin/posts' },
+      { id: 'Posts', icon: <PeopleIcon />, link: '/admin/posts' },
       // { id: 'Blogs', icon: <PermMediaOutlinedIcon />, link: '/admin/blogs' },
       // { id: 'Categories', icon: <DnsRoundedIcon />, link: '/admin/categories' },
 
@@ -42,6 +42,7 @@ const categories = [
       { id: 'HomeAddresses', icon: <StarIcon />, link: '/admin/homeAddresses' },
       { id: 'AvoidZones', icon: <StarIcon />, link: '/admin/avoidZones' },
       { id: 'Settings', icon: <SettingIcon />, link: '/admin/settings' },
+      { id: 'CityZones', icon: <SettingIcon />, link: '/admin/cityZones' },
     ],
   },
 ];

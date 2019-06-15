@@ -67,7 +67,7 @@ class PostController {
                 title: req.body.title,
                 synopsis: req.body.synopsis,
                 body: req.body.body,
-                categoryId: req.body.categoryId
+                categoryId: req.body.categoryId,
             });
             const post = await postCreate.save();
             return res.status(201).json(post);

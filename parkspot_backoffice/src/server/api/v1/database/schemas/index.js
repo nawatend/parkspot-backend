@@ -10,6 +10,7 @@ import Favorite from './favorite.schema';
 import HomeAddress from './homeAddress.schema';
 import AvoidZone from './avoidZone.schema';
 import Setting from './setting.schema';
+import CityZone from './cityZone.schema';
 
 export {
     Blog,
@@ -23,4 +24,5 @@ export {
     AvoidZone,
     Setting,
     City,
+    CityZone,
 };
