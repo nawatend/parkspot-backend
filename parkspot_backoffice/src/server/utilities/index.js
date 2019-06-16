@@ -1,9 +1,15 @@
-import APIError, { handleAPIError } from './errorHandler';
+import APIError, {
+    handleAPIError,
+} from './errorHandler';
 import logger from './logger';
 import {
-    createToken, generateToken, getToken, sendToken,
+    createToken,
+    generateToken,
+    getToken,
+    sendToken,
 } from './token';
 import distance from './calcDistanceTwoPoints';
+import compare from './sort';
 
 export {
     APIError,
@@ -14,4 +20,5 @@ export {
     getToken,
     sendToken,
     distance,
+    compare,
 };
