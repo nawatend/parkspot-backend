@@ -130,6 +130,7 @@ class PostController {
         const priceChoiceParkings = [];
         const distanceToDestinationParkings = [];
         const bankcontactOptionParkings = [];
+        const chanceMin30Parkings = [];
 
         let i = 0;
 
@@ -191,15 +192,24 @@ class PostController {
             }
         });
         console.log(`BankContact Zones:${i}`);
-
         i = 0;
-        const topSixParkings = bankcontactOptionParkings.sort(compare).slice(0, 5);
+
+        bankcontactOptionParkings.forEach((machine) => {
+            if (machine.kans >= 30) {
+                // console.log(distance(req.body.destinationGeo.lat, req.body.destinationGeo.long, machine.geometry.coordinates[1], machine.geometry.coordinates[0], 'METER'));
+                chanceMin30Parkings.push(machine);
+                i += 1;
+            }
+        });
+
+
+        const topSixParkings = chanceMin30Parkings.sort(compare).slice(0, 6);
 
 
         // add info to test data
         // const o = [];
         // cloneMachines.features.forEach((machine) => {
-        //     machine.kans = Math.floor(Math.random() * 100);
+        //     machine.kans = Math.floor(Math.random() * 100) + 15;
         //     o.push(machine);
         // });
 
