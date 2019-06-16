@@ -8,10 +8,11 @@ Import the internal libraries:
 - * from database
 - errorHandler
 */
-import fetch from 'node-fetch';
 import {
     LocalStorage,
 } from 'node-localstorage';
+
+import fetch from 'node-fetch';
 import {
     APIError,
     handleAPIError,
@@ -19,14 +20,14 @@ import {
     compare,
     toOneJSONStructure,
     ascendArray,
+    addToLocalStorageArray,
+    // localStorage,
     // sortByDistance,
 } from '../../../utilities';
 import ParkMachines from '../../../assets/openData/park_machines';
 import Prices from '../../../assets/openData/price_gent';
 
-
 const localStorage = new LocalStorage('./scratch');
-
 
 /* ///////////////////////////////////////////////////////////////
 machine = parking automate, parkings underground, P&R
@@ -50,6 +51,7 @@ const getTop6UndergroundParkings = async (body, next) => {
                         // console.log(distance(req.body.destinationGeo.lat, req.body.destinationGeo.long, machine.geometry.coordinates[1], machine.geometry.coordinates[0], 'METER'));
 
                         data.push({
+                            address: machine.address,
                             name: machine.name,
                             coordinates: {
                                 lat: machine.latitude,
@@ -97,6 +99,7 @@ const getTop6ParkAndRide = async (body, next) => {
 
                         // machine.push(distance(body.destinationGeo.lat, body.destinationGeo.long, machine[1], machine[0], 'METER'));
                         data.push({
+                            address: '-',
                             name: 'Park And Ride',
                             coordinates: {
                                 lat: machine[1],
@@ -322,6 +325,7 @@ class PostController {
 
             if (req.body.settings.underground === 'true' || req.body.settings.underground === true) {
                 undergroundsResults = JSON.parse(localStorage.getItem('undergroundParks'));
+                // console.log(undergroundsResults);
             }
 
 
@@ -330,6 +334,7 @@ class PostController {
 
             topStreetParkings.forEach((machine) => {
                 topGoodJSONStructure.push({
+                    address: '-',
                     name: 'Straat Parking',
                     coordinates: {
                         lat: machine.geometry.coordinates[1],
@@ -343,19 +348,56 @@ class PostController {
                     chance: machine.kans,
                     type: 'Straat Parking',
                     onFootDistance: machine.distance_to_destination,
-
                 });
             });
 
             const Top6Parkings = toOneJSONStructure(topGoodJSONStructure, undergroundsResults).sort(ascendArray).slice(0, 6);
 
             // finally done, good GOD me.
+            // add address to somespot
+
+
+            await Top6Parkings.forEach(async (machine) => {
+                await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${machine.coordinates.lat}+${machine.coordinates.long}&pretty=1&key=4fd9b61b904e466b8256aa5b4c04cb7b`)
+                    .then(response => response.json())
+                    .then(async (responseJson) => {
+                        try {
+                            machine.address = responseJson.results[0].formatted;
+                        } catch (error) {
+                            console.error(error);
+                        }
+                    }).then(() => {
+
+                    })
+                    .catch(error => console.log(error)); // to catch the errors if any
+            });
+
+            // const last = await JSON.parse(localStorage.getItem('dataWithAddress'));
+            setTimeout(() => res.status(200).json(Top6Parkings), 2000);
+
             // const u = getTop6UndergroundParkings(req.body, next);
-            return res.status(200).json(Top6Parkings);
         }
         if (req.body.settings.zonename === 'Park & Ride') {
             const parkAndRideResults = JSON.parse(localStorage.getItem('parkAndRideParks')).sort(ascendArray).slice(0, 6);
-            return res.status(200).json(parkAndRideResults);
+
+
+            await parkAndRideResults.forEach(async (machine) => {
+                await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${machine.coordinates.lat}+${machine.coordinates.long}&pretty=1&key=4fd9b61b904e466b8256aa5b4c04cb7b`)
+                    .then(response => response.json())
+                    .then(async (responseJson) => {
+                        try {
+                            machine.address = responseJson.results[0].formatted;
+                        } catch (error) {
+                            console.error(error);
+                        }
+                    }).then(() => {
+
+                    })
+                    .catch(error => console.log(error)); // to catch the errors if any
+            });
+
+            // const last = await JSON.parse(localStorage.getItem('dataWithAddress'));
+            setTimeout(() => res.status(200).json(parkAndRideResults), 2000);
         }
     };
 }
