@@ -49,6 +49,7 @@ const categories = [
       { id: 'AvoidZones', icon: <AvoidIcon />, link: '/admin/avoidZones' },
       { id: 'Settings', icon: <SettingIcon />, link: '/admin/settings' },
       { id: 'CityZones', icon: <PlaceIcon />, link: '/admin/cityZones' },
+      { id: 'CityAvoidZones', icon: <PlaceIcon />, link: '/admin/cityAvoidZones' },
     ],
   },
 ];

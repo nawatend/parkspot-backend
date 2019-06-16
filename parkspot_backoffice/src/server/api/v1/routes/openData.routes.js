@@ -95,7 +95,7 @@ const initializeEndpoints = (parentRouter, authService) => {
      *         description: An array with parking geolocation
      */
 
-    parentRouter.get('/searchparkingspots', openDataController.getParkingSpots);
+    parentRouter.post('/searchparkingspots', openDataController.getParkingSpots);
     /**
      * @swagger
      * /api/v1/searchparkingspots:

@@ -36,9 +36,9 @@ class Main extends Component {
       <div className="App">
         <Switch>
           {/* direct to login, because only admin needed */}
-          <RouteWithLayout exact path='/' layout={LoginLayout} component={LoginPage} />
-          <Redirect from="/home" to="/" />
-          <RouteWithLayout path="/login" layout={LoginLayout} component={LoginPage}></RouteWithLayout>
+          <RouteWithLayout exact path='/' layout={AdminLayout} component={AdminPage} />
+          <Redirect from="/home" to="/admin" />
+          {/* <RouteWithLayout path="/login" layout={LoginLayout} component={LoginPage}></RouteWithLayout> */}
           <RouteWithLayout path="/admin" layout={AdminLayout} component={AdminPage}></RouteWithLayout>
         </Switch>
       </div>

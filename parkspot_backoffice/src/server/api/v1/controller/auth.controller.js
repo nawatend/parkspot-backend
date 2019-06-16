@@ -13,11 +13,12 @@ import config from '../../../config';
 class AuthController {
     // {        successReturnToOrRedirect: 'http://localhost:3000/admin',    },
     loginLocal = async (authService, req, res, next) => {
-        authService.passport.authenticate('local', config.jwtSession, (err, user, info) => {
+        authService.passport.authenticate('local', config.auth.jwtSession.session, (err, user, info) => {
+           
             if (err) {
                 return next(err);
             }
-            console.log(user);
+            // console.log(user);
             if (!user) {
                 return next(new Error(`No user found ${info.message}`));
             }
@@ -34,6 +35,7 @@ class AuthController {
                 email: user.email,
                 token: `${token}`,
                 strategy: 'local',
+                userId: user.id,
             });
         })(req, res, next);
     };

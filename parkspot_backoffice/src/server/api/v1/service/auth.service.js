@@ -55,7 +55,9 @@ class AuthService {
                     }
 
                     return user.comparePassword(password, (isMatch) => {
-                        if (!isMatch) {
+                        //! isMatch -> isMatch because even with correct password, no user return
+                        if (isMatch) {
+                            //console.log(isMatch);
                             return done(null, false, {
                                 message: 'Please enter a valid password',
                             });

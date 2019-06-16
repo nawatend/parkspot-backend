@@ -132,21 +132,23 @@ class PostController {
         const bankcontactOptionParkings = [];
 
         let i = 0;
+
+        // get all parkings in Zone: city center, edge of city , outside city
         cloneMachines.features.forEach((machine) => {
-            if (req.body.settings.zoneslug === 'city-center') {
+            if (req.body.settings.zonename === 'City') {
                 if (cityCenterMaxDistance >= distance(gentCenterGeoPoint.lat, gentCenterGeoPoint.long, machine.geometry.coordinates[1], machine.geometry.coordinates[0], 'METER')) {
                     // console.log(distance(gentCenterGeoPoint.lat, gentCenterGeoPoint.long, machine.geometry.coordinates[1], machine.geometry.coordinates[0], 'METER'));
                     oneZoneParkings.push(machine);
                     i += 1;
                 }
-            } else if (req.body.settings.zoneslug === 'edge-of-city') {
+            } else if (req.body.settings.zonename === 'Edge of city') {
                 if (cityEdgeMaxDistance >= distance(gentCenterGeoPoint.lat, gentCenterGeoPoint.long, machine.geometry.coordinates[1], machine.geometry.coordinates[0], 'METER')
                     && cityCenterMaxDistance <= distance(gentCenterGeoPoint.lat, gentCenterGeoPoint.long, machine.geometry.coordinates[1], machine.geometry.coordinates[0], 'METER')) {
                     // console.log(distance(gentCenterGeoPoint.lat, gentCenterGeoPoint.long, machine.geometry.coordinates[1], machine.geometry.coordinates[0], 'METER'));
                     oneZoneParkings.push(machine);
                     i += 1;
                 }
-            } else if (req.body.settings.zoneslug === 'outside-city') {
+            } else if (req.body.settings.zonename === 'Outside city') {
                 if (cityEdgeMaxDistance <= distance(gentCenterGeoPoint.lat, gentCenterGeoPoint.long, machine.geometry.coordinates[1], machine.geometry.coordinates[0], 'METER')) {
                     // console.log(distance(gentCenterGeoPoint.lat, gentCenterGeoPoint.long, machine.geometry.coordinates[1], machine.geometry.coordinates[0], 'METER'));
                     oneZoneParkings.push(machine);
@@ -191,18 +193,19 @@ class PostController {
         console.log(`BankContact Zones:${i}`);
 
         i = 0;
-        // bankcontactOptionParkings.forEach((machine) => {
-        //     if (req.body.settings.distance_from_destination >= distance(req.body.destinationGeo.lat, req.body.destinationGeo.long, machine.geometry.coordinates[1], machine.geometry.coordinates[0], 'METER')) {
-        //         // console.log(distance(req.body.destinationGeo.lat, req.body.destinationGeo.long, machine.geometry.coordinates[1], machine.geometry.coordinates[0], 'METER'));
-        //         topSixParkings.push(machine);
-        //         i += 1;
-        //     }
-        // });
-
         const topSixParkings = bankcontactOptionParkings.sort(compare).slice(0, 5);
+
+
+        // add info to test data
+        // const o = [];
+        // cloneMachines.features.forEach((machine) => {
+        //     machine.kans = Math.floor(Math.random() * 100);
+        //     o.push(machine);
+        // });
 
         return res.status(200).json(topSixParkings);
     };
 }
+
 
 export default PostController;

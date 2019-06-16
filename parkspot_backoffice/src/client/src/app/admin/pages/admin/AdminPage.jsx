@@ -19,6 +19,8 @@ import AvoidZonesOverviewPage from '../avoidZones-overview';
 import UsersOverviewPage from '../users-overview';
 import SettingsOverviewPage from '../settings-overview';
 import CityZonesOverviewPage from '../cityZones-overview';
+
+import CityAvoidZonesOverviewPage from '../cityAvoidZones-overview';
 class AdminPage extends Component {
   render() {
     return (
@@ -36,6 +38,7 @@ class AdminPage extends Component {
         <Route path="/admin/avoidZones" component={AvoidZonesOverviewPage}></Route>
         <Route path="/admin/settings" component={SettingsOverviewPage}></Route>
         <Route path="/admin/cityZones" component={CityZonesOverviewPage}></Route>
+        <Route path="/admin/cityAvoidZones" component={CityAvoidZonesOverviewPage}></Route>
       </div>
     )
   }

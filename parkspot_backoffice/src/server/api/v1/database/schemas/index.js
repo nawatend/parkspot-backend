@@ -11,6 +11,7 @@ import HomeAddress from './homeAddress.schema';
 import AvoidZone from './avoidZone.schema';
 import Setting from './setting.schema';
 import CityZone from './cityZone.schema';
+import CityAvoidZone from './cityAvoidZone.schema';
 
 export {
     Blog,
@@ -25,4 +26,5 @@ export {
     Setting,
     City,
     CityZone,
+    CityAvoidZone,
 };
