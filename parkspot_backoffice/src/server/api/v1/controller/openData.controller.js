@@ -20,12 +20,8 @@ import {
     compare,
     toOneJSONStructure,
     ascendArray,
-    addToLocalStorageArray,
-    // localStorage,
-    // sortByDistance,
 } from '../../../utilities';
 import ParkMachines from '../../../assets/openData/park_machines';
-import Prices from '../../../assets/openData/price_gent';
 
 const localStorage = new LocalStorage('./scratch');
 
@@ -47,7 +43,8 @@ const getTop6UndergroundParkings = async (body, next) => {
 
 
                 json.forEach((machine) => {
-                    if (body.settings.distance_from_destination >= distance(body.destinationGeo.lat, body.destinationGeo.long, machine.latitude, machine.longitude, 'METER')) {
+                    if (body.settings.distance_from_destination
+                        >= distance(body.destinationGeo.lat, body.destinationGeo.long, machine.latitude, machine.longitude, 'METER')) {
                         // console.log(distance(req.body.destinationGeo.lat, req.body.destinationGeo.long, machine.geometry.coordinates[1], machine.geometry.coordinates[0], 'METER'));
 
                         data.push({
@@ -91,13 +88,11 @@ const getTop6ParkAndRide = async (body, next) => {
                     throw new APIError(404, 'No Data for underground parking found!');
                 }
                 /* ///////////////////////////////////////////////////////////////
-                machine = parking automate, parkings underground, P&R
+                !!machine = parking automate, parkings underground, P&R
                 */ // ////////////////////////////////////////////////////////////
                 json.coordinates.forEach((machine) => {
                     if (body.settings.distance_from_destination >= distance(body.destinationGeo.lat, body.destinationGeo.long, machine[1], machine[0], 'METER')) {
-                        // console.log(distance(req.body.destinationGeo.lat, req.body.destinationGeo.long, machine.geometry.coordinates[1], machine.geometry.coordinates[0], 'METER'));
-
-                        // machine.push(distance(body.destinationGeo.lat, body.destinationGeo.long, machine[1], machine[0], 'METER'));
+                        // address will be filled later down
                         data.push({
                             address: '-',
                             name: 'Park And Ride',
@@ -232,7 +227,7 @@ class PostController {
         // distance in meters
         const cityCenterMaxDistance = 1500;
         const cityEdgeMaxDistance = 3000;
-        const cityOutsideMinDistance = 6000;
+        // const cityOutsideMinDistance = 6000;
         const cloneMachines = {
             ...ParkMachines,
         };
@@ -245,7 +240,7 @@ class PostController {
         getTop6ParkAndRide(req.body, next);
         getTop6UndergroundParkings(req.body, next);
 
-
+        // i for test
         let i = 0;
 
         // get all parkings in Zone: city center, edge of city , outside city
@@ -355,8 +350,7 @@ class PostController {
 
             // finally done, good GOD me.
             // add address to somespot
-
-
+            // Get Address of coordinates
             await Top6Parkings.forEach(async (machine) => {
                 await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${machine.coordinates.lat}+${machine.coordinates.long}&pretty=1&key=4fd9b61b904e466b8256aa5b4c04cb7b`)
                     .then(response => response.json())
@@ -401,6 +395,5 @@ class PostController {
         }
     };
 }
-
 
 export default PostController;

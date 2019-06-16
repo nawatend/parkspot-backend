@@ -12,7 +12,7 @@ import distance from './calcDistanceTwoPoints';
 import compare from './sort';
 import toOneJSONStructure from './toOneJSONStructure';
 import ascendArray from './ascendArray';
-import addToLocalStorageArray from './addToLocalStorageArray';
+
 import {
     localStorage,
 } from './localStorage';
@@ -29,7 +29,6 @@ export {
     compare,
     toOneJSONStructure,
     ascendArray,
-    addToLocalStorageArray,
     localStorage,
 
 };

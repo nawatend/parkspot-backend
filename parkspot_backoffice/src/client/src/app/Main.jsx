@@ -12,18 +12,15 @@ import { RouteWithLayout } from './utilities';
 /*
 Layout
 */
-import { LoginLayout, PageLayout } from './layouts';
+
 import { AdminLayout } from './admin/layouts';
 
 /*
 Page components
 */
-import HomePage from './pages/home';
+
 import AdminPage from './admin/pages/admin';
-import LoginPage from './pages/login';
-import NewsPage from './pages/news';
-import CountriesPage from './pages/countries';
-import PostDetailPage from './pages/post-detail';
+
 
 /*
 Import styling
