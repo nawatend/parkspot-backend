@@ -10,6 +10,8 @@ import {
 } from './token';
 import distance from './calcDistanceTwoPoints';
 import compare from './sort';
+import toOneJSONStructure from './toOneJSONStructure';
+import ascendArray from './ascendArray';
 
 export {
     APIError,
@@ -21,4 +23,7 @@ export {
     sendToken,
     distance,
     compare,
+    toOneJSONStructure,
+    ascendArray,
+
 };
