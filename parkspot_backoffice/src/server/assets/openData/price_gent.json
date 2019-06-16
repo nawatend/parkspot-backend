@@ -1,0 +1,19 @@
+{
+    "pricesPerHour": [{
+            "day": 2.5,
+            "night": 1.5
+        },
+        {
+            "day": 1.5,
+            "night": 1
+        },
+        {
+            "day": 1.5,
+            "night": 0
+        },
+        {
+            "day": 0.8,
+            "night": 0
+        }
+    ]
+}
