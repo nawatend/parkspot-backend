@@ -341,7 +341,7 @@ class PostController {
             });
         });
 
-        const Top6Parkings = toOneJSONStructure(topGoodJSONStructure, undergroundsResults, parkAndRideResults).sort(ascendArray).slice(0, 10);
+        const Top6Parkings = toOneJSONStructure(topGoodJSONStructure, undergroundsResults, parkAndRideResults).sort(ascendArray).slice(0, 6);
 
         // finally done, good GOD me.
         // const u = getTop6UndergroundParkings(req.body, next);
