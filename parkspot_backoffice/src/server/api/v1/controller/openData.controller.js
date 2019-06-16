@@ -246,116 +246,117 @@ class PostController {
         let i = 0;
 
         // get all parkings in Zone: city center, edge of city , outside city
-        cloneMachines.features.forEach((machine) => {
-            if (req.body.settings.zonename === 'City') {
-                if (cityCenterMaxDistance >= distance(gentCenterGeoPoint.lat, gentCenterGeoPoint.long, machine.geometry.coordinates[1], machine.geometry.coordinates[0], 'METER')) {
-                    // console.log(distance(gentCenterGeoPoint.lat, gentCenterGeoPoint.long, machine.geometry.coordinates[1], machine.geometry.coordinates[0], 'METER'));
-                    oneZoneParkings.push(machine);
-                    i += 1;
+        if (req.body.settings.zonename !== 'Park & Ride') {
+            cloneMachines.features.forEach((machine) => {
+                if (req.body.settings.zonename === 'City') {
+                    if (cityCenterMaxDistance >= distance(gentCenterGeoPoint.lat, gentCenterGeoPoint.long, machine.geometry.coordinates[1], machine.geometry.coordinates[0], 'METER')) {
+                        // console.log(distance(gentCenterGeoPoint.lat, gentCenterGeoPoint.long, machine.geometry.coordinates[1], machine.geometry.coordinates[0], 'METER'));
+                        oneZoneParkings.push(machine);
+                        i += 1;
+                    }
+                } else if (req.body.settings.zonename === 'Edge of city') {
+                    if (cityEdgeMaxDistance >= distance(gentCenterGeoPoint.lat, gentCenterGeoPoint.long, machine.geometry.coordinates[1], machine.geometry.coordinates[0], 'METER')
+                        && cityCenterMaxDistance <= distance(gentCenterGeoPoint.lat, gentCenterGeoPoint.long, machine.geometry.coordinates[1], machine.geometry.coordinates[0], 'METER')) {
+                        // console.log(distance(gentCenterGeoPoint.lat, gentCenterGeoPoint.long, machine.geometry.coordinates[1], machine.geometry.coordinates[0], 'METER'));
+                        oneZoneParkings.push(machine);
+                        i += 1;
+                    }
+                } else if (req.body.settings.zonename === 'Outside city') {
+                    if (cityEdgeMaxDistance <= distance(gentCenterGeoPoint.lat, gentCenterGeoPoint.long, machine.geometry.coordinates[1], machine.geometry.coordinates[0], 'METER')) {
+                        // console.log(distance(gentCenterGeoPoint.lat, gentCenterGeoPoint.long, machine.geometry.coordinates[1], machine.geometry.coordinates[0], 'METER'));
+                        oneZoneParkings.push(machine);
+                        i += 1;
+                    }
                 }
-            } else if (req.body.settings.zonename === 'Edge of city') {
-                if (cityEdgeMaxDistance >= distance(gentCenterGeoPoint.lat, gentCenterGeoPoint.long, machine.geometry.coordinates[1], machine.geometry.coordinates[0], 'METER')
-                    && cityCenterMaxDistance <= distance(gentCenterGeoPoint.lat, gentCenterGeoPoint.long, machine.geometry.coordinates[1], machine.geometry.coordinates[0], 'METER')) {
-                    // console.log(distance(gentCenterGeoPoint.lat, gentCenterGeoPoint.long, machine.geometry.coordinates[1], machine.geometry.coordinates[0], 'METER'));
-                    oneZoneParkings.push(machine);
-                    i += 1;
-                }
-            } else if (req.body.settings.zonename === 'Outside city') {
-                if (cityEdgeMaxDistance <= distance(gentCenterGeoPoint.lat, gentCenterGeoPoint.long, machine.geometry.coordinates[1], machine.geometry.coordinates[0], 'METER')) {
-                    // console.log(distance(gentCenterGeoPoint.lat, gentCenterGeoPoint.long, machine.geometry.coordinates[1], machine.geometry.coordinates[0], 'METER'));
-                    oneZoneParkings.push(machine);
-                    i += 1;
-                }
-            }
-        });
-        console.log(`Zones:${i}`);
-        i = 0;
-        oneZoneParkings.forEach((machine) => {
-            if (req.body.settings.price_per_hour >= machine.properties.tarief.day) {
-                priceChoiceParkings.push(machine);
-                i += 1;
-            }
-        });
-        console.log(`Price Choice:${i}`);
-        i = 0;
-        priceChoiceParkings.forEach((machine) => {
-            if (req.body.settings.distance_from_destination >= distance(req.body.destinationGeo.lat, req.body.destinationGeo.long, machine.geometry.coordinates[1], machine.geometry.coordinates[0], 'METER')) {
-                // console.log(distance(req.body.destinationGeo.lat, req.body.destinationGeo.long, machine.geometry.coordinates[1], machine.geometry.coordinates[0], 'METER'));
+            });
 
-                machine.distance_to_destination = distance(req.body.destinationGeo.lat, req.body.destinationGeo.long, machine.geometry.coordinates[1], machine.geometry.coordinates[0], 'METER');
-                distanceToDestinationParkings.push(machine);
-                i += 1;
-            }
-        });
-        console.log(`Max Dis to dest. Zones:${i}`);
-        i = 0;
-        distanceToDestinationParkings.forEach((machine) => {
-            if (req.body.settings.bankcontact === 'true') {
-                if (machine.properties.Betaalmodus === 'Cashless') {
+            console.log(`Zones:${i}`);
+            i = 0;
+            oneZoneParkings.forEach((machine) => {
+                if (req.body.settings.price_per_hour >= machine.properties.tarief.day) {
+                    priceChoiceParkings.push(machine);
+                    i += 1;
+                }
+            });
+            console.log(`Price Choice:${i}`);
+            i = 0;
+            priceChoiceParkings.forEach((machine) => {
+                if (req.body.settings.distance_from_destination >= distance(req.body.destinationGeo.lat, req.body.destinationGeo.long, machine.geometry.coordinates[1], machine.geometry.coordinates[0], 'METER')) {
+                    // console.log(distance(req.body.destinationGeo.lat, req.body.destinationGeo.long, machine.geometry.coordinates[1], machine.geometry.coordinates[0], 'METER'));
+
+                    machine.distance_to_destination = distance(req.body.destinationGeo.lat, req.body.destinationGeo.long, machine.geometry.coordinates[1], machine.geometry.coordinates[0], 'METER');
+                    distanceToDestinationParkings.push(machine);
+                    i += 1;
+                }
+            });
+            console.log(`Max Dis to dest. Zones:${i}`);
+            i = 0;
+            distanceToDestinationParkings.forEach((machine) => {
+                if (req.body.settings.bankcontact === 'true') {
+                    if (machine.properties.Betaalmodus === 'Cashless') {
+                        // console.log(distance(req.body.destinationGeo.lat, req.body.destinationGeo.long, machine.geometry.coordinates[1], machine.geometry.coordinates[0], 'METER'));
+                        bankcontactOptionParkings.push(machine);
+                        i += 1;
+                    }
+                } else if (machine.properties.Betaalmodus === 'Cash') {
                     // console.log(distance(req.body.destinationGeo.lat, req.body.destinationGeo.long, machine.geometry.coordinates[1], machine.geometry.coordinates[0], 'METER'));
                     bankcontactOptionParkings.push(machine);
                     i += 1;
                 }
-            } else if (machine.properties.Betaalmodus === 'Cash') {
-                // console.log(distance(req.body.destinationGeo.lat, req.body.destinationGeo.long, machine.geometry.coordinates[1], machine.geometry.coordinates[0], 'METER'));
-                bankcontactOptionParkings.push(machine);
-                i += 1;
-            }
-        });
-        console.log(`BankContact Zones:${i}`);
-        i = 0;
-
-        bankcontactOptionParkings.forEach((machine) => {
-            if (machine.kans >= 30) {
-                // console.log(distance(req.body.destinationGeo.lat, req.body.destinationGeo.long, machine.geometry.coordinates[1], machine.geometry.coordinates[0], 'METER'));
-                chanceMin30Parkings.push(machine);
-                i += 1;
-            }
-        });
-
-
-        // ALL GOOD PARKINGS SPOTS
-
-        const undergroundsResults = JSON.parse(localStorage.getItem('undergroundParks'));
-        const parkAndRideResults = JSON.parse(localStorage.getItem('parkAndRideParks'));
-
-        const topStreetParkings = chanceMin30Parkings.sort(compare).slice(0, 7);
-        const topGoodJSONStructure = [];
-
-        topStreetParkings.forEach((machine) => {
-            topGoodJSONStructure.push({
-                name: 'Straat Parking',
-                coordinates: {
-                    lat: machine.geometry.coordinates[1],
-                    long: machine.geometry.coordinates[0],
-                },
-                price: {
-                    day: machine.properties.tarief.day,
-                    night: machine.properties.tarief.night,
-                },
-                open: '24/7',
-                chance: machine.kans,
-                type: 'Straat Parking',
-                onFootDistance: machine.distance_to_destination,
-
             });
-        });
+            console.log(`BankContact Zones:${i}`);
+            i = 0;
 
-        const Top6Parkings = toOneJSONStructure(topGoodJSONStructure, undergroundsResults, parkAndRideResults).sort(ascendArray).slice(0, 6);
+            bankcontactOptionParkings.forEach((machine) => {
+                if (machine.kans >= 30) {
+                    // console.log(distance(req.body.destinationGeo.lat, req.body.destinationGeo.long, machine.geometry.coordinates[1], machine.geometry.coordinates[0], 'METER'));
+                    chanceMin30Parkings.push(machine);
+                    i += 1;
+                }
+            });
 
-        // finally done, good GOD me.
-        // const u = getTop6UndergroundParkings(req.body, next);
+
+            // ALL GOOD PARKINGS SPOTS
+
+            let undergroundsResults = [];
+
+            if (req.body.settings.underground === 'true' || req.body.settings.underground === true) {
+                undergroundsResults = JSON.parse(localStorage.getItem('undergroundParks'));
+            }
 
 
-        // console.log(localStorage.getItem('parkAndRide'));
-        // add info to test data
-        // const o = [];
-        // cloneMachines.features.forEach((machine) => {
-        //     machine.kans = Math.floor(Math.random() * 100) + 15;
-        //     o.push(machine);
-        // });
+            const topStreetParkings = chanceMin30Parkings.sort(compare).slice(0, 7);
+            const topGoodJSONStructure = [];
 
-        return res.status(200).json(Top6Parkings);
+            topStreetParkings.forEach((machine) => {
+                topGoodJSONStructure.push({
+                    name: 'Straat Parking',
+                    coordinates: {
+                        lat: machine.geometry.coordinates[1],
+                        long: machine.geometry.coordinates[0],
+                    },
+                    price: {
+                        day: machine.properties.tarief.day,
+                        night: machine.properties.tarief.night,
+                    },
+                    open: '24/7',
+                    chance: machine.kans,
+                    type: 'Straat Parking',
+                    onFootDistance: machine.distance_to_destination,
+
+                });
+            });
+
+            const Top6Parkings = toOneJSONStructure(topGoodJSONStructure, undergroundsResults).sort(ascendArray).slice(0, 6);
+
+            // finally done, good GOD me.
+            // const u = getTop6UndergroundParkings(req.body, next);
+            return res.status(200).json(Top6Parkings);
+        }
+        if (req.body.settings.zonename === 'Park & Ride') {
+            const parkAndRideResults = JSON.parse(localStorage.getItem('parkAndRideParks')).sort(ascendArray).slice(0, 6);
+            return res.status(200).json(parkAndRideResults);
+        }
     };
 }
 
